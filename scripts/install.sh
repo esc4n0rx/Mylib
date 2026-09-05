@@ -10,6 +10,7 @@ set -euo pipefail
 
 REPO="${MYLIB_REPO:-paulo-android99/Mylib}"
 VERSION="${MYLIB_VERSION:-latest}"
+AVATARS_VERSION="${MYLIB_AVATARS_VERSION:-avatars-v1}"
 INSTALL_DIR="${MYLIB_INSTALL_DIR:-$HOME/mylib}"
 PORT="${MYLIB_PORT:-8096}"
 
@@ -99,6 +100,25 @@ log "Downloading $asset"
 curl -fsSL "$download_url" -o "$tmp_archive"
 tar -xzf "$tmp_archive" -C "$INSTALL_DIR/bin"
 chmod +x "$INSTALL_DIR/bin/mylib-server"
+
+# --- 3b. Download the built-in avatar catalog (separate, rarely-changing release asset) ----
+# Published independently of the server version via scripts/package-avatars.sh; skipped on
+# reinstall/update if already present.
+if [ -d "$INSTALL_DIR/data/avatars" ] && [ -n "$(ls -A "$INSTALL_DIR/data/avatars" 2>/dev/null)" ]; then
+  log "Avatar catalog already present, skipping download"
+else
+  avatars_api_url="https://api.github.com/repos/${REPO}/releases/tags/${AVATARS_VERSION}"
+  avatars_url="$(curl -fsSL "$avatars_api_url" 2>/dev/null | grep -o '"browser_download_url": *"[^"]*mylib-avatars\.tar\.gz"' | cut -d'"' -f4)"
+  if [ -n "$avatars_url" ]; then
+    log "Downloading avatar catalog"
+    tmp_avatars="$(mktemp -t mylib-avatars.XXXXXX.tar.gz)"
+    curl -fsSL "$avatars_url" -o "$tmp_avatars"
+    tar -xzf "$tmp_avatars" -C "$INSTALL_DIR/data"
+    rm -f "$tmp_avatars"
+  else
+    log "Avatar catalog release (${AVATARS_VERSION}) not found, skipping (profiles will fall back to generated avatars)"
+  fi
+fi
 
 # --- 4. Start the server -------------------------------------------------------------------
 log "Starting MyLib server"

@@ -9,6 +9,7 @@
 param(
     [string]$Repo = "paulo-android99/Mylib",
     [string]$Version = "latest",
+    [string]$AvatarsVersion = "avatars-v1",
     [string]$InstallDir = (Join-Path $env:USERPROFILE "Mylib"),
     [int]$Port = 8096
 )
@@ -76,6 +77,31 @@ Write-Step "Downloading $asset"
 Invoke-WebRequest -UseBasicParsing -Uri $downloadUrl -OutFile $archivePath
 Expand-Archive -Path $archivePath -DestinationPath (Join-Path $InstallDir "bin") -Force
 Remove-Item $archivePath -Force
+
+# --- 3b. Download the built-in avatar catalog (separate, rarely-changing release asset) ------
+# Published independently of the server version via scripts/package-avatars.sh; skipped on
+# reinstall/update if already present.
+$avatarsDir = Join-Path $InstallDir "data\avatars"
+if ((Test-Path $avatarsDir) -and (Get-ChildItem $avatarsDir -ErrorAction SilentlyContinue)) {
+    Write-Step "Avatar catalog already present, skipping download"
+} else {
+    try {
+        $avatarsRelease = Invoke-RestMethod -UseBasicParsing -Uri "https://api.github.com/repos/$Repo/releases/tags/$AvatarsVersion"
+        $avatarsUrl = ($avatarsRelease.assets | Where-Object { $_.name -eq "mylib-avatars.tar.gz" } | Select-Object -First 1).browser_download_url
+    } catch {
+        $avatarsUrl = $null
+    }
+    if ($avatarsUrl) {
+        Write-Step "Downloading avatar catalog"
+        $avatarsArchive = Join-Path $env:TEMP "mylib-avatars.tar.gz"
+        Invoke-WebRequest -UseBasicParsing -Uri $avatarsUrl -OutFile $avatarsArchive
+        New-Item -ItemType Directory -Force -Path (Join-Path $InstallDir "data") | Out-Null
+        tar -xzf $avatarsArchive -C (Join-Path $InstallDir "data")
+        Remove-Item $avatarsArchive -Force
+    } else {
+        Write-Step "Avatar catalog release ($AvatarsVersion) not found, skipping (profiles will fall back to generated avatars)"
+    }
+}
 
 # --- 4. Start the server ----------------------------------------------------------------------
 Write-Step "Starting MyLib server"

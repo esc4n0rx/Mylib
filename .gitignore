@@ -25,3 +25,7 @@ dev.local.bat
 /tools/ffmpeg/ffmpeg
 /tools/ffmpeg/ffprobe
 /tools/ffmpeg/ffplay
+
+# output of scripts/package-avatars.sh: a release asset, never a git-tracked file
+# (data/avatars itself is already excluded by the /data rule above)
+/mylib-avatars.tar.gz
