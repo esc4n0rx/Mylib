@@ -12,9 +12,17 @@ import { useSetupStore } from '../store';
 import { ServerStep } from '../components/ServerStep';
 import { AdminStep } from '../components/AdminStep';
 import { DatabaseStep } from '../components/DatabaseStep';
+import { MetadataStep } from '../components/MetadataStep';
 import { LibrariesStep } from '../components/LibrariesStep';
 import { FinishStep } from '../components/FinishStep';
 import { ServerPreview } from '../components/ServerPreview';
+
+const STEP_SERVER = 0;
+const STEP_ADMIN = 1;
+const STEP_DATABASE = 2;
+const STEP_METADATA = 3;
+const STEP_LIBRARIES = 4;
+const STEP_FINISH = 5;
 
 export default function SetupPage() {
   const { t } = useTranslation('setup');
@@ -32,6 +40,7 @@ export default function SetupPage() {
     t('steps.server'),
     t('steps.administrator'),
     t('steps.database'),
+    t('steps.metadata'),
     t('steps.libraries'),
     t('steps.finish'),
   ];
@@ -44,27 +53,52 @@ export default function SetupPage() {
     setSubmitting(true);
     setError(null);
     try {
-      await api.setup.submit({
-        serverName: store.server.serverName.trim(),
-        database: store.database,
-        administrator: {
-          username: store.admin.username,
-          password: store.admin.password,
-          displayName: store.admin.displayName,
-        },
-      });
+      // The account-creation call and the two follow-up calls below (login, then create each
+      // queued library) are NOT one atomic operation on the server: by the time this call
+      // returns successfully, the admin account already exists and setup is marked complete.
+      // If a later step in this function fails, we must not leave the user stuck on this
+      // screen with no way forward — a retry here would otherwise hit SETUP_ALREADY_COMPLETED
+      // forever, since the account was already created on the first attempt.
+      try {
+        await api.setup.submit({
+          serverName: store.server.serverName.trim(),
+          database: store.database,
+          administrator: {
+            username: store.admin.username,
+            password: store.admin.password,
+            displayName: store.admin.displayName,
+          },
+          tmdbApiKey: store.tmdbApiKey.trim() || undefined,
+        });
+      } catch (err) {
+        const alreadyCompleted =
+          err instanceof ApiError && err.code === 'SETUP_ALREADY_COMPLETED';
+        if (!alreadyCompleted) throw err;
+        // A previous attempt already created the account (a later step failed back then) —
+        // fall through to login instead of getting stuck here.
+      }
 
-      // The wizard stays visually continuous: authenticate, then create the
-      // libraries the user queued during onboarding.
       const loginResponse = await api.auth.login(store.admin.username, store.admin.password);
       login(loginResponse.accessToken);
 
+      // Library creation can fail per-item (e.g. a path that doesn't exist yet on this
+      // machine). That should not undo the setup that already succeeded above — skip the
+      // failed ones and let the user know, instead of leaving the whole wizard stuck.
+      const failedLibraries: string[] = [];
       for (const library of store.libraries) {
-        await api.libraries.create(library);
+        try {
+          await api.libraries.create(library);
+        } catch {
+          failedLibraries.push(library.name);
+        }
       }
 
       await queryClient.invalidateQueries({ queryKey: ['setup', 'status'] });
-      notify(t('finish.title'), 'success');
+      if (failedLibraries.length > 0) {
+        notify(t('finish.librariesFailed', { names: failedLibraries.join(', ') }), 'warning');
+      } else {
+        notify(t('finish.title'), 'success');
+      }
       store.reset();
       navigate('/home', { replace: true });
     } catch (err) {
@@ -79,7 +113,7 @@ export default function SetupPage() {
       activeStep={step}
       steps={steps}
       aside={
-        step === 0 ? (
+        step === STEP_SERVER ? (
           <ServerPreview
             name={store.server.serverName}
             language={store.server.serverLanguage}
@@ -90,7 +124,7 @@ export default function SetupPage() {
         <>
           <Button
             onClick={() => store.setStep(Math.max(0, step - 1))}
-            disabled={step === 0 || submitting}
+            disabled={step === STEP_SERVER || submitting}
           >
             {tc('actions.back')}
           </Button>
@@ -105,55 +139,65 @@ export default function SetupPage() {
               variant="contained"
               endIcon={<ArrowForwardIcon />}
             >
-              {step === 3 && store.libraries.length === 0
-                ? t('libraries.skip')
-                : tc('actions.continue')}
+              {step === STEP_METADATA && !store.tmdbApiKey.trim()
+                ? t('metadata.skip')
+                : step === STEP_LIBRARIES && store.libraries.length === 0
+                  ? t('libraries.skip')
+                  : tc('actions.continue')}
             </Button>
           )}
         </>
       }
     >
-      {step === 0 ? (
+      {step === STEP_SERVER ? (
         <ServerStep
           formId={formId}
           values={store.server}
           onChange={store.setServer}
           onNext={(values) => {
             store.setServer(values);
-            store.setStep(1);
+            store.setStep(STEP_ADMIN);
           }}
         />
       ) : null}
-      {step === 1 ? (
+      {step === STEP_ADMIN ? (
         <AdminStep
           formId={formId}
           values={store.admin}
           onNext={(values) => {
             store.setAdmin(values);
-            store.setStep(2);
+            store.setStep(STEP_DATABASE);
           }}
         />
       ) : null}
-      {step === 2 ? (
+      {step === STEP_DATABASE ? (
         <DatabaseStep
           formId={formId}
           value={store.database}
           onNext={(value) => {
             store.setDatabase(value);
-            store.setStep(3);
+            store.setStep(STEP_METADATA);
           }}
         />
       ) : null}
-      {step === 3 ? (
+      {step === STEP_METADATA ? (
+        <MetadataStep
+          formId={formId}
+          value={store.tmdbApiKey}
+          onChange={store.setTmdbApiKey}
+          onNext={() => store.setStep(STEP_LIBRARIES)}
+        />
+      ) : null}
+      {step === STEP_LIBRARIES ? (
         <LibrariesStep
           formId={formId}
           libraries={store.libraries}
           onAdd={store.addLibrary}
           onRemove={store.removeLibrary}
-          onNext={() => store.setStep(4)}
+          onNext={() => store.setStep(STEP_FINISH)}
         />
       ) : null}
-      {step === 4 ? (
+      {step === STEP_FINISH ? (
         <FinishStep
           serverName={store.server.serverName}
           database={store.database}
