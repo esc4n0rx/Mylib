@@ -7,11 +7,13 @@ interface SetupDraft {
   server: ServerStepValues;
   admin: AdminStepValues | null;
   database: DatabaseConfig;
+  tmdbApiKey: string;
   libraries: CreateLibraryRequest[];
   setStep: (step: number) => void;
   setServer: (server: ServerStepValues) => void;
   setAdmin: (admin: AdminStepValues) => void;
   setDatabase: (database: DatabaseConfig) => void;
+  setTmdbApiKey: (key: string) => void;
   addLibrary: (library: CreateLibraryRequest) => void;
   removeLibrary: (index: number) => void;
   reset: () => void;
@@ -29,11 +31,13 @@ export const useSetupStore = create<SetupDraft>((set) => ({
   server: initialServer,
   admin: null,
   database: { type: 'sqlite' },
+  tmdbApiKey: '',
   libraries: [],
   setStep: (step) => set({ step }),
   setServer: (server) => set({ server }),
   setAdmin: (admin) => set({ admin }),
   setDatabase: (database) => set({ database }),
+  setTmdbApiKey: (tmdbApiKey) => set({ tmdbApiKey }),
   addLibrary: (library) => set((s) => ({ libraries: [...s.libraries, library] })),
   removeLibrary: (index) =>
     set((s) => ({ libraries: s.libraries.filter((_, i) => i !== index) })),
@@ -43,6 +47,7 @@ export const useSetupStore = create<SetupDraft>((set) => ({
       server: initialServer,
       admin: null,
       database: { type: 'sqlite' },
+      tmdbApiKey: '',
       libraries: [],
     }),
 }));

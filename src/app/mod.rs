@@ -2,7 +2,7 @@ use std::{
     collections::{HashMap, HashSet},
     fs,
     net::IpAddr,
-    sync::Arc,
+    sync::{Arc, RwLock as StdRwLock},
     time::{Duration, Instant, SystemTime},
 };
 
@@ -30,7 +30,7 @@ use uuid::Uuid;
 use crate::{
     api,
     auth::TokenService,
-    config::{Config, PersistedDatabaseConfig},
+    config::{Config, PersistedDatabaseConfig, PersistedTmdbConfig},
     db::{Database, DatabaseKind},
     errors::{AppError, AppResult},
     operational::SystemMetricsService,
@@ -43,6 +43,10 @@ use crate::{
 pub struct AppState {
     database: Arc<RwLock<Database>>,
     pub config: Arc<Config>,
+    // Overrides `config.tmdb_api_key` when a key is set via setup or settings instead of the
+    // `MYLIB_TMDB_API_KEY` env var. The env var, when present, always takes precedence and is
+    // never replaced here (see `resolve_tmdb_key`).
+    tmdb_api_key: Arc<StdRwLock<Option<String>>>,
     pub tokens: TokenService,
     pub started_at: SystemTime,
     pub login_limiter: Arc<Mutex<HashMap<IpAddr, LoginWindow>>>,
@@ -86,9 +90,11 @@ impl AppState {
             fs::create_dir_all(avatar_root.join(category))?;
         }
         let avatar_catalog = AvatarCatalog::new(avatar_root);
+        let tmdb_api_key = resolve_tmdb_key(&config)?;
         Ok(Self {
             database: Arc::new(RwLock::new(database)),
             config: Arc::new(config),
+            tmdb_api_key: Arc::new(StdRwLock::new(tmdb_api_key)),
             tokens,
             started_at: SystemTime::now(),
             login_limiter: Arc::new(Mutex::new(HashMap::new())),
@@ -142,6 +148,21 @@ impl AppState {
     pub async fn clear_login_failures(&self, ip: IpAddr) {
         self.login_limiter.lock().await.remove(&ip);
     }
+    /// Current TMDB API key, whether it came from `MYLIB_TMDB_API_KEY` at startup or was set
+    /// later via setup/settings. Read/write happen without ever holding the lock across an
+    /// `.await`, so a plain `std::sync::RwLock` is enough here.
+    pub fn tmdb_api_key(&self) -> Option<String> {
+        self.tmdb_api_key
+            .read()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .clone()
+    }
+    pub fn set_tmdb_api_key(&self, key: Option<String>) {
+        *self
+            .tmdb_api_key
+            .write()
+            .unwrap_or_else(|poisoned| poisoned.into_inner()) = key;
+    }
 }
 
 fn resolve_database(config: &Config) -> AppResult<(DatabaseKind, String)> {
@@ -171,7 +192,7 @@ fn resolve_database(config: &Config) -> AppResult<(DatabaseKind, String)> {
 
 pub fn persist_database(config: &Config, kind: DatabaseKind, url: Option<&str>) -> AppResult<()> {
     let encrypted_url_file = if let Some(url) = url {
-        Some(encrypt_secret(config, url)?)
+        Some(encrypt_secret(config, url, "database.enc")?)
     } else {
         None
     };
@@ -183,6 +204,44 @@ pub fn persist_database(config: &Config, kind: DatabaseKind, url: Option<&str>) 
         config.persisted_config_path(),
         serde_json::to_vec_pretty(&persisted)
             .map_err(|_| AppError::config("unable to encode database configuration"))?,
+    )?;
+    Ok(())
+}
+
+/// Resolves the TMDB API key at startup: the `MYLIB_TMDB_API_KEY` env var always wins (it is
+/// the documented override for containerized/scripted deployments); otherwise fall back to a
+/// key persisted earlier through setup or the settings screen.
+fn resolve_tmdb_key(config: &Config) -> AppResult<Option<String>> {
+    if config.tmdb_api_key.is_some() {
+        return Ok(config.tmdb_api_key.clone());
+    }
+    if !config.persisted_tmdb_config_path().exists() {
+        return Ok(None);
+    }
+    let persisted: PersistedTmdbConfig =
+        serde_json::from_slice(&fs::read(config.persisted_tmdb_config_path())?)
+            .map_err(|_| AppError::config("invalid persisted TMDB configuration"))?;
+    match persisted.encrypted_key_file {
+        Some(file) => Ok(Some(decrypt_secret(config, &file)?)),
+        None => Ok(None),
+    }
+}
+
+/// Persists (or clears, when `key` is `None`) the TMDB API key entered via setup or the
+/// settings screen, so it survives a restart without requiring `MYLIB_TMDB_API_KEY` to be set.
+pub fn persist_tmdb_key(config: &Config, key: Option<&str>) -> AppResult<()> {
+    let encrypted_key_file = match key {
+        Some(key) => Some(encrypt_secret(config, key, "tmdb.enc")?),
+        None => {
+            let _ = fs::remove_file(config.data_dir.join("secrets/tmdb.enc"));
+            None
+        }
+    };
+    let persisted = PersistedTmdbConfig { encrypted_key_file };
+    fs::write(
+        config.persisted_tmdb_config_path(),
+        serde_json::to_vec_pretty(&persisted)
+            .map_err(|_| AppError::config("unable to encode TMDB configuration"))?,
     )?;
     Ok(())
 }
@@ -202,15 +261,14 @@ fn encryption_key(config: &Config) -> AppResult<[u8; 32]> {
     Ok(key)
 }
 
-fn encrypt_secret(config: &Config, plaintext: &str) -> AppResult<String> {
+fn encrypt_secret(config: &Config, plaintext: &str, filename: &str) -> AppResult<String> {
     let cipher = ChaCha20Poly1305::new((&encryption_key(config)?).into());
     let nonce = ChaCha20Poly1305::generate_nonce(&mut OsRng);
     let encrypted = cipher
         .encrypt(&nonce, plaintext.as_bytes())
-        .map_err(|_| AppError::config("unable to encrypt database credentials"))?;
+        .map_err(|_| AppError::config("unable to encrypt stored credentials"))?;
     let mut payload = nonce.to_vec();
     payload.extend(encrypted);
-    let filename = "database.enc";
     fs::write(
         config.data_dir.join("secrets").join(filename),
         base64::engine::general_purpose::STANDARD.encode(payload),

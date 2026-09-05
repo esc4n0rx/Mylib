@@ -138,6 +138,17 @@ export const api = {
       ),
   },
 
+  settings: {
+    tmdbStatus: () => request<{ configured: boolean; available: boolean }>(
+      '/settings/metadata/tmdb/status',
+    ),
+    updateTmdbKey: (apiKey: string | null) =>
+      request<{ configured: boolean; available: boolean }>('/settings/metadata/tmdb', {
+        method: 'PUT',
+        body: { apiKey },
+      }),
+  },
+
   media: {
     unmatched: (libraryId: string) =>
       request<Paginated<UnmatchedItem>>(`/libraries/${libraryId}/unmatched`),

@@ -4,6 +4,7 @@
     "server": "Server",
     "administrator": "Administrator",
     "database": "Database",
+    "metadata": "Metadata",
     "libraries": "Libraries",
     "finish": "Finish"
   },
@@ -47,6 +48,14 @@
     "connected": "Connection successful",
     "failed": "Connection failed"
   },
+  "metadata": {
+    "title": "Metadata (TMDB)",
+    "subtitle": "Add a TMDB API key to fetch posters, overviews and cast automatically. You can skip this and set it up later.",
+    "apiKey": "TMDB API key",
+    "apiKeyPlaceholder": "Paste your v3 API key here",
+    "hint": "Don't have a key? Create one for free at",
+    "skip": "Finish without TMDB"
+  },
   "libraries": {
     "title": "Add your libraries",
     "subtitle": "You can create libraries now or after finishing setup.",
@@ -63,6 +72,7 @@
     "libraries": "Libraries",
     "noLibraries": "No libraries",
     "cta": "Finish setup",
-    "submitting": "Finishing…"
+    "submitting": "Finishing…",
+    "librariesFailed": "Server configured, but these libraries could not be created: {{names}}. Add them again from Libraries."
   }
 }

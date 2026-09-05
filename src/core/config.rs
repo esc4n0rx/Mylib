@@ -47,6 +47,11 @@ pub struct PersistedDatabaseConfig {
     pub encrypted_url_file: Option<String>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PersistedTmdbConfig {
+    pub encrypted_key_file: Option<String>,
+}
+
 impl Config {
     pub fn load() -> AppResult<Self> {
         let data_dir =
@@ -136,6 +141,10 @@ impl Config {
 
     pub fn persisted_config_path(&self) -> PathBuf {
         self.data_dir.join("config/database.json")
+    }
+
+    pub fn persisted_tmdb_config_path(&self) -> PathBuf {
+        self.data_dir.join("config/tmdb.json")
     }
 }
 

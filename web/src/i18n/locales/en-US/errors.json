@@ -32,6 +32,7 @@
     "GOOGLE_DRIVE_UNAVAILABLE": "Google Drive is currently unavailable.",
     "M3U_TOO_LARGE": "The playlist exceeds the maximum allowed size.",
     "INVALID_M3U": "The file is not a valid M3U playlist.",
-    "M3U_FETCH_FAILED": "The playlist URL could not be reached."
+    "M3U_FETCH_FAILED": "The playlist URL could not be reached.",
+    "TMDB_KEY_LOCKED_BY_ENV": "The TMDB API key is set via the MYLIB_TMDB_API_KEY environment variable and cannot be changed here."
   }
 }

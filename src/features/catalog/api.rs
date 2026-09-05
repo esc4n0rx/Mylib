@@ -79,6 +79,10 @@ pub fn router() -> Router<AppState> {
             post(refresh_metadata),
         )
         .route("/api/v1/settings/metadata/tmdb/status", get(tmdb_status))
+        .route(
+            "/api/v1/settings/metadata/tmdb",
+            axum::routing::put(update_tmdb_key),
+        )
 }
 
 #[derive(Deserialize)]
@@ -1030,9 +1034,40 @@ async fn refresh_metadata(
 }
 async fn tmdb_status(State(state): State<AppState>, auth: AuthUser) -> AppResult<Json<Value>> {
     auth.require("server.view")?;
-    let configured = state.config.tmdb_api_key.is_some();
+    let configured = state.tmdb_api_key().is_some();
     Ok(Json(
         json!({"configured":configured,"available":configured}),
+    ))
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct UpdateTmdbKeyRequest {
+    /// Omit or send an empty/whitespace-only string to clear a previously configured key.
+    api_key: Option<String>,
+}
+
+async fn update_tmdb_key(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Json(payload): Json<UpdateTmdbKeyRequest>,
+) -> AppResult<Json<Value>> {
+    auth.require("server.manage")?;
+    let key = payload
+        .api_key
+        .as_deref()
+        .map(str::trim)
+        .filter(|v| !v.is_empty());
+    if state.config.tmdb_api_key.is_some() {
+        return Err(AppError::conflict(
+            "TMDB_KEY_LOCKED_BY_ENV",
+            "The TMDB API key is set via the MYLIB_TMDB_API_KEY environment variable and cannot be changed here.",
+        ));
+    }
+    crate::app::persist_tmdb_key(&state.config, key)?;
+    state.set_tmdb_api_key(key.map(String::from));
+    Ok(Json(
+        json!({"configured":key.is_some(),"available":key.is_some()}),
     ))
 }
 
@@ -1817,7 +1852,7 @@ async fn cache_value(
 
 pub(crate) fn provider(state: &AppState) -> AppResult<TmdbMetadataProvider> {
     TmdbMetadataProvider::new(
-        state.config.tmdb_api_key.clone(),
+        state.tmdb_api_key(),
         state.config.tmdb_timeout_seconds,
         state.metadata_slots.clone(),
     )

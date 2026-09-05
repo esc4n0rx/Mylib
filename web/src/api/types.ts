@@ -35,6 +35,8 @@ export interface SetupRequest {
     password: string;
     displayName: string;
   };
+  /** Optional. Ignored server-side when MYLIB_TMDB_API_KEY is already set via env var. */
+  tmdbApiKey?: string;
 }
 
 export interface DatabaseTestResponse {

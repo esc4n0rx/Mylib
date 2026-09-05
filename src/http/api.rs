@@ -85,6 +85,11 @@ struct SetupRequest {
     server_name: String,
     database: DatabaseRequest,
     administrator: AdministratorRequest,
+    /// Optional: lets the wizard persist a TMDB API key without requiring
+    /// `MYLIB_TMDB_API_KEY` to be exported before the first run. Skipped when the env var is
+    /// already set, since that always takes precedence (see `app::resolve_tmdb_key`).
+    #[serde(default)]
+    tmdb_api_key: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -286,6 +291,22 @@ async fn setup(
     .await?;
     tx.commit().await?;
     state.replace_database(target).await;
+    if state.config.tmdb_api_key.is_none() {
+        let tmdb_key = payload
+            .tmdb_api_key
+            .as_deref()
+            .map(str::trim)
+            .filter(|v| !v.is_empty());
+        if let Some(key) = tmdb_key {
+            // Best-effort: a fresh install should not fail setup over the TMDB key. Metadata
+            // enrichment can still be configured afterwards from the settings screen.
+            if let Err(error) = crate::app::persist_tmdb_key(&state.config, Some(key)) {
+                tracing::warn!(%error, "failed to persist TMDB API key from setup");
+            } else {
+                state.set_tmdb_api_key(Some(key.to_string()));
+            }
+        }
+    }
     tracing::info!(
         server_id,
         database_type = kind.as_str(),
