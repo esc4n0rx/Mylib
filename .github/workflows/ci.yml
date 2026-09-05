@@ -14,6 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      # #[derive(RustEmbed)] on src/infrastructure/web_assets.rs requires web/dist to exist
+      # at compile time, so every cargo invocation below needs the frontend built first.
+      - name: Build web frontend
+        run: |
+          npm --prefix web ci
+          npm --prefix web run build
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
