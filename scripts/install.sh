@@ -13,6 +13,9 @@ VERSION="${MYLIB_VERSION:-latest}"
 AVATARS_VERSION="${MYLIB_AVATARS_VERSION:-avatars-v1}"
 INSTALL_DIR="${MYLIB_INSTALL_DIR:-$HOME/mylib}"
 PORT="${MYLIB_PORT:-8096}"
+# auto: install a systemd service when systemd is the running init (so MyLib survives a
+# reboot); always/never override the detection; irrelevant on macOS, which has no systemd.
+SYSTEMD_MODE="${MYLIB_SYSTEMD:-auto}"
 
 log() { printf '==> %s\n' "$1"; }
 die() {
@@ -120,30 +123,108 @@ else
   fi
 fi
 
-# --- 4. Start the server -------------------------------------------------------------------
-log "Starting MyLib server"
-export MYLIB_DATA_DIR="$INSTALL_DIR/data"
-export MYLIB_HOST="0.0.0.0"
-export MYLIB_PORT="$PORT"
-export MYLIB_FFMPEG_PATH="$FFMPEG_PATH"
-export MYLIB_FFPROBE_PATH="$FFPROBE_PATH"
-
-nohup "$INSTALL_DIR/bin/mylib-server" >"$INSTALL_DIR/mylib.log" 2>"$INSTALL_DIR/mylib.err.log" &
-server_pid=$!
-echo "$server_pid" >"$INSTALL_DIR/mylib.pid"
-
-for _ in $(seq 1 30); do
-  if curl -fsS "http://127.0.0.1:${PORT}/health" >/dev/null 2>&1; then
-    break
-  fi
-  sleep 1
-done
-
-if ! kill -0 "$server_pid" 2>/dev/null; then
-  die "the server exited during startup; check $INSTALL_DIR/mylib.err.log"
+# --- 4. Decide how the server will run -----------------------------------------------------
+# A plain `nohup ... &` does not survive a reboot: nothing re-launches it, so the server stays
+# down until someone logs back in and runs the script's "start it again later" command by hand.
+# Prefer a systemd service on Linux so MyLib comes back up automatically.
+use_systemd=false
+if [ "$platform" = "linux" ]; then
+  case "$SYSTEMD_MODE" in
+  always) use_systemd=true ;;
+  never) use_systemd=false ;;
+  *)
+    if [ -d /run/systemd/system ] && require_cmd systemctl; then
+      use_systemd=true
+    fi
+    ;;
+  esac
 fi
 
-# --- 5. Report the LAN URL -------------------------------------------------------------------
+service_name="mylib"
+service_unit_path="/etc/systemd/system/${service_name}.service"
+
+install_systemd_service() {
+  log "Installing systemd service (${service_unit_path})"
+  local run_user run_group
+  run_user="$(id -un)"
+  run_group="$(id -gn)"
+  local unit
+  unit="$(
+    cat <<EOF
+[Unit]
+Description=MyLib media server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=${run_user}
+Group=${run_group}
+WorkingDirectory=${INSTALL_DIR}
+Environment=MYLIB_DATA_DIR=${INSTALL_DIR}/data
+Environment=MYLIB_HOST=0.0.0.0
+Environment=MYLIB_PORT=${PORT}
+Environment=MYLIB_FFMPEG_PATH=${FFMPEG_PATH}
+Environment=MYLIB_FFPROBE_PATH=${FFPROBE_PATH}
+ExecStart=${INSTALL_DIR}/bin/mylib-server
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  )"
+  if ! printf '%s\n' "$unit" | sudo tee "$service_unit_path" >/dev/null; then
+    log "could not write $service_unit_path (no sudo access); falling back to a foreground-managed process"
+    use_systemd=false
+    return
+  fi
+  sudo systemctl daemon-reload
+  sudo systemctl enable --now "$service_name"
+}
+
+# --- 5. Start the server -------------------------------------------------------------------
+if [ "$use_systemd" = true ]; then
+  install_systemd_service
+fi
+
+if [ "$use_systemd" = true ]; then
+  log "Starting MyLib via systemd"
+  for _ in $(seq 1 30); do
+    if curl -fsS "http://127.0.0.1:${PORT}/health" >/dev/null 2>&1; then
+      break
+    fi
+    sleep 1
+  done
+  if ! sudo systemctl is-active --quiet "$service_name"; then
+    die "the service failed to start; check 'sudo journalctl -u $service_name'"
+  fi
+else
+  log "Starting MyLib server"
+  export MYLIB_DATA_DIR="$INSTALL_DIR/data"
+  export MYLIB_HOST="0.0.0.0"
+  export MYLIB_PORT="$PORT"
+  export MYLIB_FFMPEG_PATH="$FFMPEG_PATH"
+  export MYLIB_FFPROBE_PATH="$FFPROBE_PATH"
+
+  nohup "$INSTALL_DIR/bin/mylib-server" >"$INSTALL_DIR/mylib.log" 2>"$INSTALL_DIR/mylib.err.log" &
+  server_pid=$!
+  echo "$server_pid" >"$INSTALL_DIR/mylib.pid"
+
+  for _ in $(seq 1 30); do
+    if curl -fsS "http://127.0.0.1:${PORT}/health" >/dev/null 2>&1; then
+      break
+    fi
+    sleep 1
+  done
+
+  if ! kill -0 "$server_pid" 2>/dev/null; then
+    die "the server exited during startup; check $INSTALL_DIR/mylib.err.log"
+  fi
+fi
+
+# --- 6. Report the LAN URL -------------------------------------------------------------------
 lan_ip=""
 if [ "$platform" = "macos" ]; then
   lan_ip="$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || true)"
@@ -152,10 +233,20 @@ else
 fi
 
 echo
-log "MyLib is running (pid $server_pid, logs in $INSTALL_DIR/mylib.log)"
+if [ "$use_systemd" = true ]; then
+  log "MyLib is running as the '$service_name' systemd service and will start automatically on boot"
+else
+  log "MyLib is running (pid $server_pid, logs in $INSTALL_DIR/mylib.log)"
+fi
 echo "    Local:  http://localhost:${PORT}"
 [ -n "$lan_ip" ] && echo "    Network: http://${lan_ip}:${PORT}"
 echo
 echo "Open one of the URLs above to run the first-time setup wizard."
-echo "Stop the server with: kill \$(cat $INSTALL_DIR/mylib.pid)"
-echo "Start it again later with: MYLIB_DATA_DIR=$INSTALL_DIR/data MYLIB_FFMPEG_PATH=$FFMPEG_PATH MYLIB_FFPROBE_PATH=$FFPROBE_PATH $INSTALL_DIR/bin/mylib-server"
+if [ "$use_systemd" = true ]; then
+  echo "Manage it with: sudo systemctl {stop|start|restart|status} $service_name"
+  echo "View logs with: sudo journalctl -u $service_name -f"
+else
+  echo "Stop the server with: kill \$(cat $INSTALL_DIR/mylib.pid)"
+  echo "Start it again later with: MYLIB_DATA_DIR=$INSTALL_DIR/data MYLIB_FFMPEG_PATH=$FFMPEG_PATH MYLIB_FFPROBE_PATH=$FFPROBE_PATH $INSTALL_DIR/bin/mylib-server"
+  echo "Note: this process will NOT restart automatically after a reboot. Re-run this installer, or set up your own systemd/init service, to enable that."
+fi

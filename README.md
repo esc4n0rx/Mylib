@@ -47,6 +47,13 @@ latest release (data in `MYLIB_DATA_DIR` is preserved). Source: [scripts/install
 [scripts/install.ps1](scripts/install.ps1), release pipeline in
 [.github/workflows/release.yml](.github/workflows/release.yml).
 
+On Linux, when systemd is the running init and the invoking user has `sudo` access,
+`scripts/install.sh` installs and enables a `mylib` systemd service so the server restarts on
+failure and comes back up automatically after a reboot (`sudo systemctl status mylib`,
+`sudo journalctl -u mylib -f`). Set `MYLIB_SYSTEMD=never` to opt out and fall back to a plain
+background process instead (in that case nothing restarts it after a reboot — re-run the
+installer, or set up your own service, if you need that).
+
 ## Requirements and build
 
 - Rust 1.98 or newer
@@ -73,7 +80,7 @@ The server listens on `0.0.0.0:8096`. On first start it creates `./data/{config,
 | `MYLIB_DATABASE_URL` | unset | Explicit SQLx connection URL |
 | `MYLIB_JWT_SECRET` | generated | At least 32 characters; injected secret takes precedence |
 | `MYLIB_TOKEN_TTL_SECONDS` | `3600` | Access-token lifetime |
-| `MYLIB_TMDB_API_KEY` | unset | TMDB v3 API key; scans still index files when unset |
+| `MYLIB_TMDB_API_KEY` | unset | TMDB v3 API key; scans still index files when unset. Takes precedence over a key entered through the setup wizard or `PUT /api/v1/settings/metadata/tmdb`, and cannot be changed from there while set |
 | `MYLIB_TMDB_TIMEOUT_SECONDS` | `10` | Per-request TMDB timeout |
 | `MYLIB_TMDB_MAX_CONCURRENCY` | `4` | Global in-flight TMDB request limit |
 | `MYLIB_SCAN_MAX_CONCURRENT_LIBRARIES` | `2` | Simultaneous library scans |
@@ -98,6 +105,10 @@ curl -X POST http://localhost:8096/api/v1/setup \
 ```
 
 Setup runs in one database transaction. It creates the persistent server UUID, system roles, current permissions, the Argon2id administrator credential, role links and audit records. A second setup request returns `409 SETUP_ALREADY_COMPLETED`.
+
+`administrator`/`database` creation is transactional, but the setup wizard's UI also logs in and creates any queued libraries as separate follow-up requests after this call succeeds — a failure there does not undo the account that was just created. Retrying `/api/v1/setup` after that point returns `409 SETUP_ALREADY_COMPLETED`; sign in with the administrator credentials that were used and finish from the regular UI instead of repeating setup.
+
+An optional `tmdbApiKey` field in the setup body persists a TMDB key (encrypted at rest under `MYLIB_DATA_DIR/secrets`) without requiring `MYLIB_TMDB_API_KEY` to be exported first. It can be set or changed later, when no env var is present, via `PUT /api/v1/settings/metadata/tmdb` (requires the `server.manage` permission) with `{"apiKey": "..."}`, or cleared with `{"apiKey": null}`.
 
 ### SQLite
 
