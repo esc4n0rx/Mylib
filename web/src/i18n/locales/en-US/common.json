@@ -1,0 +1,103 @@
+{
+  "appName": "MyLib",
+  "actions": {
+    "continue": "Continue",
+    "back": "Back",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "finish": "Finish",
+    "retry": "Try again",
+    "close": "Close",
+    "signOut": "Sign out"
+  },
+  "nav": {
+    "sectionMedia": "Media",
+    "sectionServer": "Server",
+    "home": "Home",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "libraries": "Libraries",
+    "favorites": "Favorites",
+    "activity": "Activity",
+    "users": "Users",
+    "settings": "Settings"
+  },
+  "topbar": {
+    "searchPlaceholder": "Search",
+    "searchComingSoon": "Coming in the next phase"
+  },
+  "userMenu": { "profile": "Profile", "switchProfile": "Switch profile", "account": "My account", "settings": "Settings", "signOut": "Sign out" },
+  "states": {
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We couldn't complete the operation. Please try again.",
+    "notFoundTitle": "Page not found",
+    "backHome": "Back to Home",
+    "serverOfflineTitle": "Unable to reach MyLib Server",
+    "serverOfflineBody": "Check that the server is running and try again.",
+    "comingSoon": "Coming soon"
+  },
+  "appearance": {
+    "title": "Appearance",
+    "theme": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Manage who can access the MyLib server.",
+    "add": "Add user",
+    "username": "Username",
+    "displayName": "Display name",
+    "libraryAccess": "Library access",
+    "resetPassword": "Reset password",
+    "enable": "Enable user",
+    "disable": "Disable user",
+    "lastAccess": "Last access",
+    "administrator": "Administrator"
+  },
+  "home": {
+    "welcomeTitle": "Welcome to MyLib",
+    "welcomeBody": "Your server is ready. Add or scan a library to start building your media catalog.",
+    "serverOnline": "Server online",
+    "librariesCount": "Libraries",
+    "cataloguedItems": "Catalogued items",
+    "createFirstLibrary": "Create your first library",
+    "manageLibraries": "Manage libraries",
+    "scanLibrary": "Scan library",
+    "recentlyAdded": "Recently added"
+  },
+  "activity": {
+    "title": "Activity",
+    "overview": "Overview",
+    "playback": "Playback",
+    "transcoding": "Transcoding",
+    "jobs": "Jobs",
+    "storage": "Storage",
+    "cpu": "CPU",
+    "memory": "Memory",
+    "uptime": "Uptime",
+    "activeStreams": "Active streams",
+    "queue": "Queue",
+    "serverHealth": "Server health"
+  },
+  "recommendations": {
+    "forYou": "Recommended for You",
+    "becauseYouWatched": "Because you watched",
+    "basedOnHistory": "Based on your history",
+    "becauseYouLike": "Because you like",
+    "discover": "Discover something new"
+  },
+  "media": {
+    "myList": "My List",
+    "seasons": "Seasons",
+    "episodes": "Episodes",
+    "overview": "Overview",
+    "cast": "Cast",
+    "information": "Information",
+    "files": "Files",
+    "similar": "You may also like"
+  }
+}

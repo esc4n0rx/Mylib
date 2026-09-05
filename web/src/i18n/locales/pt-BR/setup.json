@@ -1,0 +1,68 @@
+{
+  "wizardTitle": "Configuração do MyLib",
+  "steps": {
+    "server": "Servidor",
+    "administrator": "Administrador",
+    "database": "Banco de dados",
+    "libraries": "Bibliotecas",
+    "finish": "Concluir"
+  },
+  "server": {
+    "title": "Configure seu servidor MyLib",
+    "subtitle": "Defina as informações básicas do seu servidor de mídia.",
+    "name": "Nome do servidor",
+    "namePlaceholder": "Meu servidor doméstico",
+    "language": "Idioma do servidor",
+    "previewReady": "Pronto",
+    "previewPlatform": "MyLib Server"
+  },
+  "administrator": {
+    "title": "Crie a conta de administrador",
+    "subtitle": "Essa conta terá acesso total ao servidor.",
+    "username": "Usuário",
+    "displayName": "Nome de exibição",
+    "email": "E-mail (opcional)",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Ocultar senha",
+    "strength": { "weak": "Fraca", "fair": "Razoável", "good": "Boa", "strong": "Forte" }
+  },
+  "database": {
+    "title": "Escolha o banco de dados",
+    "subtitle": "O SQLite é recomendado para a maioria das instalações.",
+    "sqlite": "SQLite",
+    "sqliteRecommended": "Recomendado",
+    "sqliteDesc": "Sem configuração. Armazenado localmente junto ao servidor MyLib.",
+    "mysql": "MySQL",
+    "mysqlDesc": "Para instalações que já possuem um servidor MySQL.",
+    "host": "Host",
+    "port": "Porta",
+    "dbName": "Banco de dados",
+    "username": "Usuário",
+    "password": "Senha",
+    "sslMode": "Modo SSL",
+    "testConnection": "Testar conexão",
+    "testing": "Testando…",
+    "connected": "Conexão bem-sucedida",
+    "failed": "Falha na conexão"
+  },
+  "libraries": {
+    "title": "Adicione suas bibliotecas",
+    "subtitle": "Você pode criar bibliotecas agora ou depois de concluir a configuração.",
+    "addLibrary": "Adicionar biblioteca",
+    "skip": "Concluir sem biblioteca",
+    "pendingNote": "As bibliotecas serão criadas ao concluir a configuração."
+  },
+  "finish": {
+    "title": "Tudo pronto",
+    "subtitle": "Revise as informações e conclua a configuração.",
+    "server": "Servidor",
+    "database": "Banco de dados",
+    "administrator": "Administrador",
+    "libraries": "Bibliotecas",
+    "noLibraries": "Nenhuma biblioteca",
+    "cta": "Concluir configuração",
+    "submitting": "Concluindo…"
+  }
+}

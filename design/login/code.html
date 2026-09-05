@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - MyLib</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002201",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-fixed": "#032103",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf9f8",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#0f6e11",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-container": "#f0eded",
+                        "secondary-fixed-dim": "#abd1a0",
+                        "on-surface": "#1b1c1c",
+                        "primary-fixed": "#9df88b",
+                        "tertiary-fixed": "#ffdadb",
+                        "tertiary": "#934750",
+                        "primary-fixed-dim": "#81db72",
+                        "on-tertiary-fixed": "#3d0410",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#81db72",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bfcab8",
+                        "on-secondary-container": "#4a6b43",
+                        "tertiary-container": "#ff9fa8",
+                        "secondary-container": "#c4eab8",
+                        "on-tertiary-fixed-variant": "#763039",
+                        "surface-variant": "#e4e2e1",
+                        "on-primary-container": "#005706",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed-variant": "#2e4e29",
+                        "on-tertiary-container": "#7a333c",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005305",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "surface-tint": "#0f6e11",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#c7edbb",
+                        "on-surface-variant": "#404a3c",
+                        "tertiary-fixed-dim": "#ffb2b8",
+                        "outline": "#707a6a",
+                        "surface-dim": "#dcd9d9",
+                        "secondary": "#46673f",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "primary-container": "#75ce67"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-dense": "4px",
+                        "app-container-margin": "24px",
+                        "grid-gutter": "16px",
+                        "section-gap": "32px",
+                        "stack-compact": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Geist"],
+                        "page-title": ["Geist"],
+                        "caption": ["Geist"],
+                        "card-title": ["Geist"],
+                        "section-title": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "page-title": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "card-title": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "section-title": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #E9E8E5; }
+        .app-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); }
+        .border-subtle { border: 1px solid theme('colors.outline-variant'); }
+        .focus-glow:focus {
+            border-color: theme('colors.primary');
+            box-shadow: 0 0 0 2px theme('colors.primary-fixed-dim');
+            outline: none;
+        }
+        .poster-grid-fade {
+            mask-image: linear-gradient(to right, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 50%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-app-container-margin md:p-12">
+<!-- App Container -->
+<main class="w-full max-w-[1200px] h-[800px] max-h-[921px] bg-surface rounded-xl app-shadow overflow-hidden flex flex-col md:flex-row relative">
+<!-- Left Branding Panel (45%) -->
+<section class="hidden md:flex w-[45%] bg-surface-container-low h-full flex-col relative overflow-hidden">
+<!-- Decorative Poster Grid (Abstract/Blurred) -->
+<div aria-hidden="true" class="absolute inset-0 opacity-20 poster-grid-fade select-none pointer-events-none flex flex-wrap gap-4 p-8 blur-[2px]">
+<!-- Posters -->
+<div class="w-[140px] h-[210px] bg-secondary-fixed rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-tertiary-fixed rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-primary-fixed rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-outline-variant rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-secondary-container rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-surface-variant rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-secondary-fixed rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-tertiary-fixed rounded-md"></div>
+<div class="w-[140px] h-[210px] bg-primary-fixed rounded-md"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 flex flex-col justify-center h-full p-12 lg:p-16">
+<div class="mb-section-gap">
+<!-- Brand Logo Substitute -->
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">video_library</span>
+</div>
+<h1 class="font-page-title text-page-title text-on-surface mb-stack-dense">Your media. Your library.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Access and manage your personal media collection.</p>
+</div>
+</div>
+</section>
+<!-- Right Login Panel (55%) -->
+<section class="w-full md:w-[55%] h-full flex flex-col items-center justify-center p-8 sm:p-12 lg:p-20 relative bg-surface">
+<div class="w-full max-w-[360px] mx-auto">
+<div class="mb-section-gap text-center md:text-left">
+<h2 class="font-section-title text-section-title text-on-surface">Welcome back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Please enter your details to sign in.</p>
+</div>
+<form class="flex flex-col gap-section-gap" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-stack-compact">
+<div class="flex flex-col gap-stack-dense">
+<label class="font-card-title text-card-title text-on-surface" for="username">Username or Email</label>
+<input class="h-[40px] bg-surface-container-lowest border-subtle rounded px-3 text-on-surface font-body-md text-body-md focus-glow transition-all" id="username" name="username" placeholder="name@example.com" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-stack-dense">
+<label class="font-card-title text-card-title text-on-surface" for="password">Password</label>
+<input class="h-[40px] bg-surface-container-lowest border-subtle rounded px-3 text-on-surface font-body-md text-body-md focus-glow transition-all" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary-fixed-dim bg-surface-container-lowest transition-colors" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Remember me</span>
+</label>
+<a class="font-body-md text-body-md text-primary hover:text-on-primary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<button class="h-[38px] w-full bg-[#75CE67] hover:bg-primary-fixed transition-colors rounded text-[#163513] font-card-title text-card-title flex items-center justify-center mt-2 shadow-sm" type="submit">
+                        Sign in
+                    </button>
+</form>
+</div>
+<!-- Footer: Server Status -->
+<div class="absolute bottom-8 left-0 right-0 flex justify-center px-8">
+<div class="flex items-center justify-between w-full max-w-[360px] mx-auto bg-surface-container-low rounded-lg p-3 border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div class="flex flex-col">
+<span class="font-card-title text-card-title text-on-surface leading-tight">My Home Server</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-caption text-caption text-on-surface-variant">Online</span>
+</div>
+</div>
+</div>
+<a class="font-body-md text-body-md text-primary hover:text-on-primary-container px-2 py-1 rounded hover:bg-primary/5 transition-colors" href="#">Change</a>
+</div>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,96 @@
+{
+  "tab": "Fontes",
+  "title": "Fontes remotas",
+  "description": "Adicione listas M3U ou pastas do Google Drive a esta biblioteca.",
+  "empty": {
+    "title": "Nenhuma fonte remota",
+    "body": "Conecte uma lista M3U ou o Google Drive para catalogar mídia remota."
+  },
+  "addSource": "Adicionar fonte",
+  "provider": {
+    "local": "Local",
+    "localDesc": "Pastas no servidor. Configure em “Locais de mídia”.",
+    "M3U_URL": "M3U por URL",
+    "M3U_FILE": "Arquivo M3U",
+    "GOOGLE_DRIVE": "Google Drive",
+    "m3uDesc": "Uma playlist que você tem autorização para acessar.",
+    "driveDesc": "Selecione pastas de uma conta Google conectada."
+  },
+  "status": {
+    "READY": "Pronta",
+    "SYNCING": "Sincronizando",
+    "WARNING": "Atenção",
+    "AUTH_REQUIRED": "Reautenticação necessária",
+    "UNAVAILABLE": "Indisponível",
+    "ERROR": "Erro",
+    "DISABLED": "Desativada"
+  },
+  "form": {
+    "name": "Nome",
+    "url": "URL da lista",
+    "urlHelper": "Endereço http(s) da playlist .m3u/.m3u8.",
+    "file": "Arquivo .m3u ou .m3u8",
+    "chooseFile": "Escolher arquivo",
+    "analyze": "Analisar lista",
+    "analyzing": "Analisando…",
+    "autoSync": "Sincronizar automaticamente",
+    "intervalMinutes": "Intervalo (minutos)",
+    "create": "Criar fonte",
+    "cancel": "Cancelar"
+  },
+  "preview": {
+    "title": "Lista encontrada",
+    "totalEntries": "{{count}} entradas",
+    "movies": "Filmes",
+    "series": "Séries",
+    "unknown": "Não classificados",
+    "selectAll": "Selecionar tudo",
+    "searchCategories": "Buscar categorias",
+    "noMatches": "Nenhuma categoria corresponde à busca.",
+    "showMore": "Mostrar mais ({{count}})",
+    "confirm": "Salvar seleção e sincronizar",
+    "saving": "Salvando…"
+  },
+  "card": {
+    "lastSync": "Última sincronização",
+    "nextSync": "Próxima sincronização",
+    "never": "Nunca",
+    "entries": "{{count}} entradas",
+    "entriesLabel": "Entradas",
+    "sync": "Sincronizar agora",
+    "syncing": "Sincronizando…",
+    "editSelection": "Editar seleção",
+    "disable": "Desativar",
+    "enable": "Ativar",
+    "remove": "Remover",
+    "removeConfirm": "Remover esta fonte e seu catálogo associado?"
+  },
+  "sync": {
+    "started": "Sincronização iniciada.",
+    "done": "Sincronização concluída: {{new}} novos, {{updated}} atualizados, {{missing}} ausentes.",
+    "notModified": "A lista não mudou desde a última sincronização."
+  },
+  "googleDrive": {
+    "title": "Google Drive",
+    "connect": "Conectar com Google",
+    "connecting": "Conectando…",
+    "connected": "Conectado",
+    "reconnect": "Reconectar",
+    "disconnect": "Desconectar",
+    "notConfigured": "A integração com o Google Drive não está configurada neste servidor.",
+    "selectFolders": "Selecionar pastas",
+    "myDrive": "Meu Drive",
+    "loadMore": "Carregar mais",
+    "loading": "Carregando…",
+    "selectedFolders": "{{count}} pasta(s) selecionada(s)",
+    "chooseAccount": "Conta",
+    "noFolders": "Esta pasta não contém subpastas."
+  },
+  "detail": {
+    "origin": "Origem",
+    "category": "Categoria",
+    "subcategory": "Subcategoria",
+    "source": "Fonte",
+    "lastSeen": "Visto pela última vez"
+  }
+}

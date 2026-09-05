@@ -1,0 +1,68 @@
+{
+  "wizardTitle": "MyLib Setup",
+  "steps": {
+    "server": "Server",
+    "administrator": "Administrator",
+    "database": "Database",
+    "libraries": "Libraries",
+    "finish": "Finish"
+  },
+  "server": {
+    "title": "Set up your MyLib server",
+    "subtitle": "Configure the basic information for your media server.",
+    "name": "Server name",
+    "namePlaceholder": "My Home Server",
+    "language": "Server language",
+    "previewReady": "Ready",
+    "previewPlatform": "MyLib Server"
+  },
+  "administrator": {
+    "title": "Create the administrator account",
+    "subtitle": "This account has full access to the server.",
+    "username": "Username",
+    "displayName": "Display name",
+    "email": "Email (optional)",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "strength": { "weak": "Weak", "fair": "Fair", "good": "Good", "strong": "Strong" }
+  },
+  "database": {
+    "title": "Choose the database",
+    "subtitle": "SQLite is recommended for most installations.",
+    "sqlite": "SQLite",
+    "sqliteRecommended": "Recommended",
+    "sqliteDesc": "Zero configuration. Stored locally with your MyLib server.",
+    "mysql": "MySQL",
+    "mysqlDesc": "For installations with an existing MySQL server.",
+    "host": "Host",
+    "port": "Port",
+    "dbName": "Database",
+    "username": "Username",
+    "password": "Password",
+    "sslMode": "SSL mode",
+    "testConnection": "Test connection",
+    "testing": "Testing…",
+    "connected": "Connection successful",
+    "failed": "Connection failed"
+  },
+  "libraries": {
+    "title": "Add your libraries",
+    "subtitle": "You can create libraries now or after finishing setup.",
+    "addLibrary": "Add library",
+    "skip": "Finish without library",
+    "pendingNote": "Libraries are created when you finish setup."
+  },
+  "finish": {
+    "title": "You're all set",
+    "subtitle": "Review the information and finish setup.",
+    "server": "Server",
+    "database": "Database",
+    "administrator": "Administrator",
+    "libraries": "Libraries",
+    "noLibraries": "No libraries",
+    "cta": "Finish setup",
+    "submitting": "Finishing…"
+  }
+}

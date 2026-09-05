@@ -1,0 +1,109 @@
+{
+  "appName": "MyLib",
+  "actions": {
+    "continue": "Continuar",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Salvar",
+    "finish": "Concluir",
+    "retry": "Tentar novamente",
+    "close": "Fechar",
+    "signOut": "Sair"
+  },
+  "nav": {
+    "sectionMedia": "Mídia",
+    "sectionServer": "Servidor",
+    "home": "Início",
+    "movies": "Filmes",
+    "tvShows": "Séries",
+    "libraries": "Bibliotecas",
+    "favorites": "Favoritos",
+    "activity": "Atividade",
+    "users": "Usuários",
+    "settings": "Configurações"
+  },
+  "topbar": {
+    "searchPlaceholder": "Buscar",
+    "searchComingSoon": "Disponível na próxima fase"
+  },
+  "userMenu": {
+    "profile": "Perfil",
+    "switchProfile": "Trocar perfil",
+    "account": "Minha conta",
+    "settings": "Configurações",
+    "signOut": "Sair"
+  },
+  "states": {
+    "loading": "Carregando…",
+    "errorTitle": "Algo deu errado",
+    "errorBody": "Não foi possível concluir a operação. Tente novamente.",
+    "notFoundTitle": "Página não encontrada",
+    "backHome": "Voltar ao início",
+    "serverOfflineTitle": "Não foi possível conectar ao servidor MyLib",
+    "serverOfflineBody": "Verifique se o servidor está em execução e tente novamente.",
+    "comingSoon": "Em breve"
+  },
+  "appearance": {
+    "title": "Aparência",
+    "theme": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "users": {
+    "title": "Usuários",
+    "subtitle": "Gerencie quem pode acessar o servidor MyLib.",
+    "add": "Adicionar usuário",
+    "username": "Nome de usuário",
+    "displayName": "Nome de exibição",
+    "libraryAccess": "Acesso às bibliotecas",
+    "resetPassword": "Redefinir senha",
+    "enable": "Ativar usuário",
+    "disable": "Desativar usuário",
+    "lastAccess": "Último acesso",
+    "administrator": "Administrador"
+  },
+  "home": {
+    "welcomeTitle": "Bem-vindo ao MyLib",
+    "welcomeBody": "Seu servidor está pronto. Adicione ou escaneie uma biblioteca para começar a montar seu catálogo de mídia.",
+    "serverOnline": "Servidor on-line",
+    "librariesCount": "Bibliotecas",
+    "cataloguedItems": "Itens catalogados",
+    "createFirstLibrary": "Criar sua primeira biblioteca",
+    "manageLibraries": "Gerenciar bibliotecas",
+    "scanLibrary": "Escanear biblioteca",
+    "recentlyAdded": "Adicionados recentemente"
+  },
+  "activity": {
+    "title": "Atividade",
+    "overview": "Visão geral",
+    "playback": "Reproduções",
+    "transcoding": "Transcoding",
+    "jobs": "Jobs",
+    "storage": "Armazenamento",
+    "cpu": "CPU",
+    "memory": "Memória",
+    "uptime": "Tempo em atividade",
+    "activeStreams": "Streams ativos",
+    "queue": "Fila",
+    "serverHealth": "Saúde do servidor"
+  },
+  "recommendations": {
+    "forYou": "Recomendado para Você",
+    "becauseYouWatched": "Porque você assistiu",
+    "basedOnHistory": "Baseado no seu histórico",
+    "becauseYouLike": "Porque você gosta de",
+    "discover": "Descubra algo novo"
+  },
+  "media": {
+    "myList": "Minha Lista",
+    "seasons": "Temporadas",
+    "episodes": "Episódios",
+    "overview": "Sinopse",
+    "cast": "Elenco",
+    "information": "Informações",
+    "files": "Arquivos",
+    "similar": "Você também pode gostar"
+  }
+}

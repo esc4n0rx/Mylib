@@ -1,0 +1,27 @@
+/target
+/data
+.env
+.env.*
+!.env.example
+*.db
+*.db-shm
+*.db-wal
+/web/node_modules
+/web/dist
+/web/coverage
+/web/playwright-report
+/web/test-results
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# local dev secrets
+dev.local.bat
+
+# local FFmpeg/FFprobe binaries (large, platform-specific; install.sh/install.ps1 install
+# these system-wide instead of bundling them in the repo)
+/tools/ffmpeg/*.exe
+/tools/ffmpeg/ffmpeg
+/tools/ffmpeg/ffprobe
+/tools/ffmpeg/ffplay

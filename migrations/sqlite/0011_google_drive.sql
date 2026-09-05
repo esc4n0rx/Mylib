@@ -1,0 +1,7 @@
+CREATE TABLE google_drive_connections (id TEXT PRIMARY KEY, owner_user_id TEXT NOT NULL REFERENCES users(id), account_email TEXT NOT NULL, account_id TEXT NOT NULL, credentials_ref TEXT NOT NULL, scopes TEXT, status TEXT NOT NULL DEFAULT 'CONNECTED', last_refresh_at TEXT, last_error TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE TABLE google_drive_source_connections (source_id TEXT PRIMARY KEY REFERENCES remote_sources(id) ON DELETE CASCADE, connection_id TEXT NOT NULL REFERENCES google_drive_connections(id) ON DELETE CASCADE);
+CREATE TABLE google_drive_folders (id TEXT PRIMARY KEY, source_id TEXT NOT NULL REFERENCES remote_sources(id) ON DELETE CASCADE, folder_id TEXT NOT NULL, display_name TEXT NOT NULL, created_at TEXT NOT NULL, UNIQUE(source_id, folder_id));
+CREATE TABLE google_drive_files (id TEXT PRIMARY KEY, source_id TEXT NOT NULL REFERENCES remote_sources(id) ON DELETE CASCADE, file_id TEXT NOT NULL, name TEXT NOT NULL, size INTEGER, mime_type TEXT, modified_time TEXT, parents TEXT, media_file_id TEXT, last_seen_at TEXT NOT NULL, missing_since TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(source_id, file_id));
+CREATE INDEX idx_gdrive_files_source ON google_drive_files(source_id, file_id);
+CREATE INDEX idx_gdrive_folders_source ON google_drive_folders(source_id);
+CREATE INDEX idx_gdrive_connections_owner ON google_drive_connections(owner_user_id);

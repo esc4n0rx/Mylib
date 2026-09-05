@@ -1,0 +1,381 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MyLib - Home Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#002201",
+                      "on-background": "#1b1c1c",
+                      "on-secondary-fixed": "#032103",
+                      "on-error-container": "#93000a",
+                      "surface": "#fbf9f8",
+                      "surface-container-low": "#f6f3f2",
+                      "primary": "#0f6e11",
+                      "surface-container-highest": "#e4e2e1",
+                      "surface-container": "#f0eded",
+                      "secondary-fixed-dim": "#abd1a0",
+                      "on-surface": "#1b1c1c",
+                      "primary-fixed": "#9df88b",
+                      "tertiary-fixed": "#ffdadb",
+                      "tertiary": "#934750",
+                      "primary-fixed-dim": "#81db72",
+                      "on-tertiary-fixed": "#3d0410",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#81db72",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#bfcab8",
+                      "on-secondary-container": "#4a6b43",
+                      "tertiary-container": "#ff9fa8",
+                      "secondary-container": "#c4eab8",
+                      "on-tertiary-fixed-variant": "#763039",
+                      "surface-variant": "#e4e2e1",
+                      "on-primary-container": "#005706",
+                      "inverse-surface": "#303030",
+                      "on-secondary-fixed-variant": "#2e4e29",
+                      "on-tertiary-container": "#7a333c",
+                      "inverse-on-surface": "#f3f0f0",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#005305",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "background": "#fbf9f8",
+                      "surface-tint": "#0f6e11",
+                      "error": "#ba1a1a",
+                      "secondary-fixed": "#c7edbb",
+                      "on-surface-variant": "#404a3c",
+                      "tertiary-fixed-dim": "#ffb2b8",
+                      "outline": "#707a6a",
+                      "surface-dim": "#dcd9d9",
+                      "secondary": "#46673f",
+                      "surface-container-high": "#eae8e7",
+                      "surface-bright": "#fbf9f8",
+                      "primary-container": "#75ce67"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-dense": "4px",
+                      "app-container-margin": "24px",
+                      "grid-gutter": "16px",
+                      "section-gap": "32px",
+                      "stack-compact": "8px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Geist"
+                      ],
+                      "page-title": [
+                              "Geist"
+                      ],
+                      "caption": [
+                              "Geist"
+                      ],
+                      "card-title": [
+                              "Geist"
+                      ],
+                      "section-title": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "10px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "page-title": [
+                              "26px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "card-title": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "section-title": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-[#E9E8E5] h-full flex p-0 md:p-app-container-margin text-on-surface font-body-md transition-all duration-300">
+<div class="bg-background flex flex-row w-full h-full rounded-none md:rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.10)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full p-stack-compact w-[240px] flex-shrink-0 bg-surface-container border-r border-outline-variant">
+<div class="px-3 py-4 flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dns</span>
+</div>
+<div>
+<div class="text-page-title font-page-title font-bold text-on-surface leading-none">MyLib</div>
+<div class="text-caption font-caption text-on-surface-variant leading-tight">Primary Node</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface text-[18px]">expand_more</span>
+</div>
+<div class="flex-1 overflow-y-auto overflow-x-hidden space-y-4">
+<div class="space-y-1">
+<div class="px-3 py-1 text-label-caps font-label-caps text-on-surface-variant">MEDIA</div>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container font-semibold rounded-lg opacity-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-body-md font-body-md">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">movie</span>
+<span class="text-body-md font-body-md">Movies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">tv</span>
+<span class="text-body-md font-body-md">TV Shows</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">music_note</span>
+<span class="text-body-md font-body-md">Music</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">video_library</span>
+<span class="text-body-md font-body-md">Libraries</span>
+</a>
+</div>
+<div class="space-y-1">
+<div class="px-3 py-1 text-label-caps font-label-caps text-on-surface-variant">SERVER</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-body-md font-body-md">Activity</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">download</span>
+<span class="text-body-md font-body-md">Downloads</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">storage</span>
+<span class="text-body-md font-body-md">Storage</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-body-md font-body-md">Users</span>
+</a>
+</div>
+</div>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant">
+<button class="w-full flex items-center justify-center gap-2 h-[38px] bg-[#75CE67] text-[#163513] rounded mb-4 font-body-md font-medium">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                    Sync Server
+                </button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-body-md font-body-md">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-surface relative">
+<!-- TopNavBar -->
+<header class="w-full h-16 flex justify-between items-center px-app-container-margin bg-surface border-b border-outline-variant flex-shrink-0 z-10 transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-6">
+<h1 class="font-page-title text-page-title text-on-surface m-0 leading-none">Home</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
+</div>
+<input class="h-10 bg-[#FFFFFF] border border-outline-variant rounded-md pl-10 pr-4 text-body-md font-body-md focus:border-primary focus:ring-2 focus:ring-primary/20 w-[240px] text-on-surface placeholder:text-on-surface-variant transition-all" placeholder="Search (CMD+K)" type="text">
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="text-caption font-caption text-on-surface-variant border border-outline-variant rounded px-1.5 bg-surface-container-low">⌘K</span>
+</div>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant ml-2 object-cover" data-alt="A small, circular profile picture of a professional user in a minimalist style, light background, muted colors. Crisp and clean aesthetic, evoking a modern corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoE3mPbAs8PhcKfVjBGClnZdsQ0C-dOfsP31_SADmLDS2dwWXQxeANdOW88RS5GwBy7S_2rv2WVKiW7AVAuf5339mtyZqDiiD6f6Z00uZUWHi_We7E4H8MvrF1kH8h6teP7Y2ci70Ww3rW0SGHnTr-3qTWaKjKefY54_xp86_U3jF4SDfnlt1QChUFVJ46YFQj9Hs0IqVa5oIuHU615oG1cHCerBPQWkqOeeIjW6EWwHkCgEK-1CgX">
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-app-container-margin space-y-section-gap">
+<!-- Server Status Bar -->
+<section class="bg-[#FFFFFF] border border-outline-variant rounded-lg p-4 flex flex-wrap gap-6 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dns</span>
+</div>
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Status</div>
+<div class="text-card-title font-card-title text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#75CE67]"></span> Online
+                            </div>
+</div>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant hidden sm:block"></div>
+<div class="flex gap-8">
+<div>
+<div class="text-caption font-caption text-on-surface-variant">Libraries</div>
+<div class="text-card-title font-card-title text-on-surface">4</div>
+</div>
+<div>
+<div class="text-caption font-caption text-on-surface-variant">Items</div>
+<div class="text-card-title font-card-title text-on-surface">1,248</div>
+</div>
+<div>
+<div class="text-caption font-caption text-on-surface-variant">Storage</div>
+<div class="text-card-title font-card-title text-on-surface">4.2TB / 8TB</div>
+</div>
+<div>
+<div class="text-caption font-caption text-on-surface-variant">Streams</div>
+<div class="text-card-title font-card-title text-primary font-medium">2 Active</div>
+</div>
+</div>
+</section>
+<!-- Filters -->
+<section class="flex flex-wrap gap-stack-compact">
+<button class="px-4 py-1.5 rounded-full bg-[#343434] text-[#FFFFFF] text-body-md font-body-md border border-transparent">All</button>
+<button class="px-4 py-1.5 rounded-full bg-[#FFFFFF] text-on-surface text-body-md font-body-md border border-outline-variant hover:bg-surface-container-low transition-colors">Movies</button>
+<button class="px-4 py-1.5 rounded-full bg-[#FFFFFF] text-on-surface text-body-md font-body-md border border-outline-variant hover:bg-surface-container-low transition-colors">TV Shows</button>
+<button class="px-4 py-1.5 rounded-full bg-[#FFFFFF] text-on-surface text-body-md font-body-md border border-outline-variant hover:bg-surface-container-low transition-colors">Music</button>
+<button class="px-4 py-1.5 rounded-full bg-[#FFFFFF] text-on-surface text-body-md font-body-md border border-outline-variant hover:bg-surface-container-low transition-colors">Recently Added</button>
+<button class="px-4 py-1.5 rounded-full bg-[#FFFFFF] text-on-surface text-body-md font-body-md border border-outline-variant hover:bg-surface-container-low transition-colors">Unwatched</button>
+</section>
+<!-- Continue Watching (16:9 Cards) -->
+<section>
+<h2 class="text-section-title font-section-title text-on-surface mb-4">Continue Watching</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-grid-gutter">
+<!-- Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[16/9] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img alt="The Expanse" class="w-full h-full object-cover" data-alt="A dramatic cinematic wide shot from a sci-fi TV series. Dark, moody lighting with neon blue accents. A lone figure stands in a vast, industrial corridor. High contrast, sharp focus, professional film still aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCikeRodGV2v1M5F7H2YxaOD_S-uVZqiXHrf32RBbXVifWyqOAMCXaWqnW6nv0_qEoYY4SX6Soq1IkUr-qt2RKt6IzK8YvtCGUGyxdEHMzDyFuL0eaiu7XsCM7J7cSK3TboHcpo61o2xaly42NIHpa9ln_yhbU4Lvn1NMAM57vPP86cWi8WDo4Cy0D8Nn4pK2JFgjboS4rlvfzwUvTF8O3X5BqdxtgOLaSqrFsDjD6xevcoWKcsCfDj">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-surface-container-highest">
+<div class="h-full bg-primary" style="width: 65%;"></div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">The Expanse</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">S4:E2 "Jetsam"</div>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[16/9] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img alt="Spider-Verse" class="w-full h-full object-cover" data-alt="A bright, colorful wide shot from a modern animated movie. Vibrant greens and blues, cheerful lighting. A detailed landscape with fantastical elements. Clean, sharp vector-like aesthetic but cinematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdg266_ZlkD8cQAUJPBrXqqEM-kQhWdRtkxff3JLToG9L3u18z5MTuo6iEv7Hw_tXe145rL-PlnFjHLHuULGVtDGvf4fY7Tu_dvYPJyKEtEoheIHIxTUH8K5WkwNuC34ZeZpzk83WMotDvI7vJ8fLtTP3cUqMRIgvzAgoxRLaSZ_3NcviJATTUzT9j6nmqBYdFhPvRo428s5-KFvBI2kBAfOxuV6zKcl_1H8jNSo_aGlbmFNDHL_S3">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-surface-container-highest">
+<div class="h-full bg-primary" style="width: 20%;"></div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">Spider-Man: Across the...</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">1h 12m remaining</div>
+</div>
+</div>
+</section>
+<!-- Recently Added (2:3 Posters) -->
+<section>
+<h2 class="text-section-title font-section-title text-on-surface mb-4">Recently Added</h2>
+<div class="flex overflow-x-auto pb-4 gap-grid-gutter hide-scrollbar" style="scrollbar-width: none;">
+<!-- Poster 1 -->
+<div class="flex-none w-[140px] group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2 shadow-sm">
+<img alt="Interstellar" class="w-full h-full object-cover" data-alt="A cinematic movie poster for a space epic like Interstellar. Vast starry background, a glowing black hole, and a silhouette of an astronaut. High contrast, minimalist typography layout, deep blacks and bright whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2cVTzObz9h4WC8RxqdQ34weQFpnijfG0TzgWQcnKwhSG3hhxlpwrDxnrDOwsRJVUt5TwdnIGDLBEF6EL5ELkMvpRmd14kUbMEEJYyK0v-QezNUsBWNS9grCBWKQyDebWC95aU_r5FN7g3YtclSwbPcsug5EqBK3dqvA6U-GO9_r5pSOsCh8xBCtCwgrG6PyKbfbxOx-DrDdlBTMAQBCGWGaDTz4nWMX_CkcMxinxZ6faLUMlc5S2I">
+<div class="absolute inset-0 border border-black/10 rounded-lg pointer-events-none"></div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">Interstellar</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">2014 • Movie</div>
+</div>
+<!-- Poster 2 -->
+<div class="flex-none w-[140px] group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2 shadow-sm">
+<img alt="The Last of Us" class="w-full h-full object-cover" data-alt="A gritty, post-apocalyptic movie poster for a show like The Last of Us. Overgrown urban environment, muted greens and browns, dramatic lighting. A man and a girl stand in the foreground looking at a ruined city." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFcbbzJ8FMsO0AxtenJwXbf-Q5OZLxzX8FI8_EDcnD6xO5Mi5wK57gCsnV8VGy0ORCliidNFU_mdSHmWk8HeDvvUmBBP3XQBGPaskFSDhm8P5BfXlfvZhjZ5Lq78bK3CR76dYhQL6e2lO8vWKGDaweWcP1ESB9DRao9tTT84G8UWb2ESa2cGGbojYydHUFvvGVxBoopO33mVxaItHTs1WzysydhylZM9XZeh6ILlgs_9GR0Qa0NUTb">
+<div class="absolute inset-0 border border-black/10 rounded-lg pointer-events-none"></div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">The Last of Us</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">2023 • Series</div>
+</div>
+<!-- Poster 3 -->
+<div class="flex-none w-[140px] group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2 shadow-sm">
+<img alt="Dune: Part Two" class="w-full h-full object-cover" data-alt="A visually striking movie poster for a sci-fi epic like Dune. Vast orange desert landscape, twin suns, a lone figure in a stillsuit. Monochromatic warm color palette with sharp, minimalist design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtWHzRG9k8INHLnnmjZPdPmYsuIoyfZp5VmfqYB-3JRH9o-d8SGH-oozjZ3pk_eoKb-6u6n4D85DHdQWtsRwkuKrD13-fXATHNy_WvfjxgcuKZ-cE355hExw-YnINdd4s_wrJmZBRlx0nkbO47daUw8AOPNh90cQ_4H8abmFimv22P-OCKJLxRuQnjaJBRaTyMGSER-KVBpNCOUhVZ6M4_4QQe2Y2DmURtUN49-pNiOHabCyFm2UBZ">
+<div class="absolute inset-0 border border-black/10 rounded-lg pointer-events-none"></div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">Dune: Part Two</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">2024 • Movie</div>
+</div>
+<!-- Poster 4 -->
+<div class="flex-none w-[140px] group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2 shadow-sm">
+<img alt="Blade Runner 2049" class="w-full h-full object-cover" data-alt="A moody, neo-noir movie poster. Rainy city street at night, neon reflections on wet pavement, silhouette holding a gun. Deep blues, bright magentas and cyans, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCILAPJ6tNMHi7_dkDoxtYwxYFHgYyPJGtsDwmL5F6IrE7hcboNE4-dUcHKNOdbXeTq3yAfsvIuXWaH3yQeb4nnxLEOfpOEZ42a2KNM6tKfMn89G2iot3RJyxNBCI09wI8_twra9CE52SUsFNWGR7cgM8pAxJJU0gncpVJiaREW6S26XmUmQR9tTozIAKtweFoOaBAEIi9SqM2q6vA9Ctv9855vBhSFV5Ef1EWYTpppy1k5erOqNTd4">
+<div class="absolute inset-0 border border-black/10 rounded-lg pointer-events-none"></div>
+</div>
+<div class="text-card-title font-card-title text-on-surface truncate">Blade Runner 2049</div>
+<div class="text-caption font-caption text-on-surface-variant truncate">2017 • Movie</div>
+</div>
+</div>
+</section>
+<div class="h-8"></div> <!-- Bottom padding -->
+</div>
+</main>
+</div>
+
+
+</body></html>

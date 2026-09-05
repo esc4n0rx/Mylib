@@ -1,0 +1,106 @@
+{
+  "pageTitle": "Libraries",
+  "addLibrary": "Add library",
+  "createLibrary": "Create library",
+  "empty": {
+    "title": "No libraries yet",
+    "body": "Add a movie or TV show library to start cataloguing your media."
+  },
+  "type": { "movie": "Movies", "tvShow": "TV Shows", "MOVIE": "MOVIE", "TV_SHOW": "TV SHOW" },
+  "privacy": {
+    "label": "Privacy",
+    "public": "Public",
+    "private": "Private",
+    "publicDesc": "Available to every authenticated user.",
+    "privateDesc": "Requires a library password to unlock.",
+    "PUBLIC": "PUBLIC",
+    "PRIVATE": "PRIVATE"
+  },
+  "form": {
+    "name": "Name",
+    "description": "Description",
+    "type": "Type",
+    "libraryPassword": "Library password",
+    "confirmPassword": "Confirm password",
+    "minimumAge": "Minimum age",
+    "metadataLanguage": "Metadata language",
+    "metadataRegion": "Metadata region",
+    "paths": "Media locations",
+    "folderPath": "Folder path",
+    "addLocation": "Add location",
+    "validate": "Validate",
+    "validating": "Validating…"
+  },
+  "pathStatus": {
+    "valid": "Readable",
+    "notFound": "Not found",
+    "notReadable": "Not readable",
+    "invalid": "Invalid"
+  },
+  "card": {
+    "pathsCount": "{{count}} location",
+    "pathsCount_other": "{{count}} locations",
+    "lastScan": "Last scan",
+    "never": "Never",
+    "open": "Open",
+    "scan": "Scan",
+    "edit": "Edit"
+  },
+  "detail": {
+    "overview": "Overview",
+    "paths": "Paths",
+    "sources": "Sources",
+    "sync": "Synchronization",
+    "scan": "Scan",
+    "unmatched": "Unmatched",
+    "settings": "Settings",
+    "itemCount": "Catalogued items",
+    "unmatchedCount": "Unmatched",
+    "status": "Status"
+  },
+  "stats": { "size": "Total size", "items": "Items", "files": "Files", "unmatched": "Unmatched" },
+  "status": { "READY": "Ready", "SCANNING": "Scanning", "SYNCING": "Synchronizing", "PATH_UNAVAILABLE": "Path unavailable", "ERROR": "Error", "DISABLED": "Disabled" },
+  "paths": { "unavailableWarning": "One or more library paths are unavailable. Check the path and its permissions." },
+  "sync": {
+    "title": "Automatic synchronization", "enabled": "Enable automatic synchronization", "mode": "Mode", "interval": "Interval", "schedule": "Daily schedule", "intervalMinutes": "Interval in minutes", "hour": "Hour", "minute": "Minute", "onStartup": "Scan when the server starts", "next": "Next synchronization", "save": "Save automation"
+  },
+  "scan": {
+    "start": "Scan library",
+    "cancel": "Cancel scan",
+    "cancelConfirmTitle": "Cancel scan?",
+    "cancelConfirmBody": "The running scan will be stopped.",
+    "scanning": "Scanning library",
+    "status": "Status",
+    "discovered": "Discovered",
+    "processed": "Processed",
+    "matched": "Matched",
+    "unmatched": "Unmatched",
+    "failed": "Failed",
+    "history": "Scan history",
+    "noHistory": "No scans recorded.",
+    "states": {
+      "QUEUED": "Queued",
+      "SCANNING": "Scanning",
+      "MATCHING": "Matching",
+      "PERSISTING": "Persisting",
+      "COMPLETED": "Completed",
+      "COMPLETED_WITH_WARNINGS": "Completed with warnings",
+      "FAILED": "Failed",
+      "CANCELLED": "Cancelled",
+      "SKIPPED_ALREADY_RUNNING": "Skipped: already running"
+    }
+  },
+  "unmatched": {
+    "title": "Unmatched media",
+    "identify": "Identify",
+    "identifyNote": "Manual identification is coming in the next phase.",
+    "empty": "No items pending identification."
+  },
+  "toast": {
+    "created": "Library created",
+    "scanStarted": "Scan started",
+    "scanCompleted": "Scan completed",
+    "pathValidated": "Path validated",
+    "syncSaved": "Automation saved"
+  }
+}

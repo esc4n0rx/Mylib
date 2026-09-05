@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MyLib - Now Playing</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707a6a",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#ff9fa8",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f8",
+                        "on-surface-variant": "#404a3c",
+                        "on-tertiary-fixed": "#3d0410",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#eae8e7",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1b1c1c",
+                        "secondary-fixed-dim": "#abd1a0",
+                        "inverse-primary": "#81db72",
+                        "secondary-container": "#c4eab8",
+                        "secondary-fixed": "#c7edbb",
+                        "surface": "#fbf9f8",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-tertiary-container": "#7a333c",
+                        "primary": "#0f6e11",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#0f6e11",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#032103",
+                        "on-tertiary-fixed-variant": "#763039",
+                        "tertiary": "#934750",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#4a6b43",
+                        "primary-fixed": "#9df88b",
+                        "surface-variant": "#e4e2e1",
+                        "primary-fixed-dim": "#81db72",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-on-surface": "#f3f0f0",
+                        "secondary": "#46673f",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed-variant": "#2e4e29",
+                        "outline-variant": "#bfcab8",
+                        "on-primary-fixed": "#002201",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb2b8",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbf9f8",
+                        "on-primary-container": "#005706",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#75ce67",
+                        "on-primary-fixed-variant": "#005305"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "app-container-margin": "24px",
+                        "grid-gutter": "16px",
+                        "stack-compact": "8px",
+                        "section-gap": "32px",
+                        "stack-dense": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Geist"],
+                        "caption": ["Geist"],
+                        "card-title": ["Geist"],
+                        "page-title": ["Geist"],
+                        "body-md": ["Geist"],
+                        "section-title": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "card-title": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "page-title": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "section-title": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap');
+        
+        body {
+            background-color: #000; /* Force dark background behind the video */
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .player-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .player-container:hover .player-overlay,
+        .player-overlay.active {
+            opacity: 1;
+        }
+
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-container:hover .progress-handle {
+            transform: scale(1);
+        }
+        
+        .progress-handle {
+            transform: scale(0);
+            transition: transform 0.15s ease;
+        }
+        
+        /* Sidebar transition */
+        .info-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .info-sidebar.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="text-on-primary font-body-md h-screen w-screen relative player-container">
+<!-- Video Background (Simulated) -->
+<div class="absolute inset-0 bg-cover bg-center z-0" data-alt="A high-quality cinematic still from a science fiction movie set in space. A massive, glowing accretion disk of a black hole dominates the background, casting intense warm light against the sleek, angular hull of a highly detailed spaceship in the foreground. The lighting is dramatic, high-contrast, and realistic. The overall mood is awe-inspiring and tense. Designed to be a striking, full-screen background for a media player interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHvWHUia1K83HmXVCvk2Ii52D8njRnbED9gQlWrhZa2cXsM0qXuP21OBEaxK-B4vwmy0s0GOvCLjooxRNxBUoqZl-RjwoxupAkeFiVLA3DAC98DRR5H-YhdoNhMcs5jnD5KOTmhFdHw2K7u3bqy3HfwWbIq16J8okjVrAvCC8QXfVWnZ83N9Z0WGPj_UVatc6DUe6cGEQ_-IYgfOdGEM4jA_pJNBgZZmqIMiaQhtKHOnBM7fCGJu40')"></div>
+<!-- Player Overlay Container -->
+<div class="player-overlay absolute inset-0 z-10 flex flex-col justify-between active" id="overlay-container">
+<!-- Top Bar -->
+<div class="w-full flex justify-between items-center px-8 py-6">
+<!-- Breadcrumb / Title -->
+<div class="flex items-center gap-3 drop-shadow-md">
+<button class="text-on-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[28px]">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-opacity-80">Now Playing</span>
+<h1 class="font-section-title text-section-title text-on-primary drop-shadow-sm">Interstellar</h1>
+</div>
+</div>
+<!-- Top Actions -->
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-on-primary hover:bg-white/10 transition-colors" id="info-toggle" title="Technical Info">
+<span class="material-symbols-outlined">info</span>
+</button>
+<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-on-primary hover:bg-white/10 transition-colors" title="Close">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- Bottom Controls -->
+<div class="w-full px-8 pb-8 flex flex-col gap-4">
+<!-- Seek Bar -->
+<div class="w-full group progress-bar-container cursor-pointer flex items-center h-4">
+<div class="relative w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+<!-- Buffer -->
+<div class="absolute top-0 left-0 h-full bg-white/30 w-[85%]"></div>
+<!-- Progress -->
+<div class="absolute top-0 left-0 h-full bg-primary-container w-[65%]"></div>
+</div>
+<!-- Handle (positioned absolutely relative to progress width in JS normally, static here for design) -->
+<div class="absolute left-[calc(65%+32px)] w-3.5 h-3.5 bg-primary-container rounded-full progress-handle shadow-[0_0_10px_rgba(117,206,103,0.5)]"></div>
+</div>
+<!-- Control Buttons & Timestamps -->
+<div class="flex justify-between items-center">
+<!-- Left Controls -->
+<div class="flex items-center gap-6">
+<button class="text-on-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-on-primary hover:text-primary-fixed transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[24px]">replay_10</span>
+</button>
+<button class="text-on-primary hover:text-primary-fixed transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[24px]">forward_10</span>
+</button>
+<!-- Volume -->
+<div class="flex items-center gap-2 group">
+<button class="text-on-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+<div class="w-0 overflow-hidden group-hover:w-20 transition-all duration-300 ease-in-out h-4 flex items-center">
+<div class="w-full h-1 bg-white/20 rounded-full relative">
+<div class="absolute top-0 left-0 h-full w-[70%] bg-primary-container rounded-full"></div>
+</div>
+</div>
+</div>
+<span class="font-caption text-caption text-on-surface-variant font-medium text-opacity-90 tracking-wide">1:42:05 / 2:49:00</span>
+</div>
+<!-- Right Controls -->
+<div class="flex items-center gap-5">
+<button class="text-on-primary hover:text-primary-fixed transition-colors" title="Subtitles">
+<span class="material-symbols-outlined text-[24px]">subtitles</span>
+</button>
+<button class="text-on-primary hover:text-primary-fixed transition-colors" title="Settings">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+<button class="text-on-primary hover:text-primary-fixed transition-colors" title="Fullscreen">
+<span class="material-symbols-outlined text-[24px]">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Info Sidebar (Collapsible) -->
+<div class="info-sidebar absolute top-0 right-0 h-full w-[320px] glass-panel z-20 flex flex-col border-l border-white/10 shadow-2xl" id="info-sidebar">
+<div class="p-6 border-b border-white/10 flex justify-between items-center">
+<h2 class="font-section-title text-section-title text-on-primary">Technical Info</h2>
+<button class="text-on-surface-variant hover:text-on-primary transition-colors" id="close-sidebar">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6 flex-1 overflow-y-auto flex flex-col gap-8">
+<!-- Stream Details -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Stream Quality</h3>
+<div class="flex justify-between items-center border-b border-white/5 pb-2">
+<span class="font-caption text-caption text-on-surface-variant">Resolution</span>
+<span class="font-card-title text-card-title text-on-primary">4K HDR10</span>
+</div>
+<div class="flex justify-between items-center border-b border-white/5 pb-2">
+<span class="font-caption text-caption text-on-surface-variant">Video Bitrate</span>
+<span class="font-card-title text-card-title text-on-primary">58 Mbps</span>
+</div>
+<div class="flex justify-between items-center border-b border-white/5 pb-2">
+<span class="font-caption text-caption text-on-surface-variant">Audio Format</span>
+<span class="font-card-title text-card-title text-on-primary">Dolby Atmos (TrueHD)</span>
+</div>
+<div class="flex justify-between items-center border-b border-white/5 pb-2">
+<span class="font-caption text-caption text-on-surface-variant">Codec</span>
+<span class="font-card-title text-card-title text-on-primary">HEVC / H.265</span>
+</div>
+</div>
+<!-- Server Node -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Server Connection</h3>
+<div class="bg-white/5 p-3 rounded-lg border border-white/10 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div class="flex flex-col">
+<span class="font-card-title text-card-title text-on-primary">Primary Node</span>
+<span class="font-caption text-caption text-on-surface-variant">Direct Play • Local</span>
+</div>
+</div>
+</div>
+<!-- Next Up -->
+<div class="flex flex-col gap-4 mt-auto pt-8">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Up Next</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic thumbnail image for a science fiction movie showing a vast, desolate alien landscape with red sand. A lone astronaut in a detailed white spacesuit walks towards a distant, imposing monolithic structure. The lighting is harsh and bright, creating long shadows, evoking a sense of isolation and discovery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIcROcScj5XfSSYRHXmiJHfohRlt13PiOzG9pzZaJ2IBmk7zXZRgzB2G3mloAxrEf3O71esxZgxlTD6Uh1Op1CeTFxW4zFHAMf8lbawlt2jOeovOJ0UVLVLdydh49fkrPbldLHhFh2Y-dx6UOaA-mK10iFCE3QTaqyPryeR8_do4AauzjgBfcuXJXiMTxtUQPGrFqmJBCkcHOAbxP4U_PYDDJKrh2_nRKAjqaIG5nfSQDanUEtc0zJ"/>
+<div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-3">
+<span class="font-caption text-caption text-white/80">Starting in 4:20</span>
+<span class="font-card-title text-card-title text-white font-semibold">The Martian</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<!-- Progress bar for next up -->
+<div class="absolute bottom-0 left-0 w-full h-1 bg-white/20">
+<div class="h-full bg-primary-container w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Simple interactions for the prototype
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('info-sidebar');
+            const infoToggle = document.getElementById('info-toggle');
+            const closeSidebar = document.getElementById('close-sidebar');
+            const overlayContainer = document.getElementById('overlay-container');
+            let timeoutId;
+
+            // Toggle Sidebar
+            infoToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+            });
+
+            closeSidebar.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+
+            // Auto-hide overlay logic (simplified)
+            const resetTimer = () => {
+                overlayContainer.classList.add('active');
+                clearTimeout(timeoutId);
+                
+                // Don't auto-hide if sidebar is open
+                if (!sidebar.classList.contains('open')) {
+                    timeoutId = setTimeout(() => {
+                        overlayContainer.classList.remove('active');
+                    }, 3000);
+                }
+            };
+
+            document.addEventListener('mousemove', resetTimer);
+            document.addEventListener('click', resetTimer);
+            
+            // Initial timer
+            resetTimer();
+        });
+    </script>
+</body></html>

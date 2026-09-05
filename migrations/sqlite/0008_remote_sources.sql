@@ -1,0 +1,4 @@
+CREATE TABLE remote_sources (id TEXT PRIMARY KEY, library_id TEXT NOT NULL REFERENCES libraries(id) ON DELETE CASCADE, provider_type TEXT NOT NULL CHECK(provider_type IN ('M3U_URL','M3U_FILE','GOOGLE_DRIVE')), name TEXT NOT NULL, is_active INTEGER NOT NULL DEFAULT 1, config TEXT NOT NULL DEFAULT '{}', status TEXT NOT NULL DEFAULT 'READY', auto_sync_enabled INTEGER NOT NULL DEFAULT 1, auto_sync_interval_minutes INTEGER NOT NULL DEFAULT 720, last_sync_at TEXT, last_successful_sync_at TEXT, next_sync_at TEXT, last_error TEXT, last_error_at TEXT, created_by TEXT NOT NULL REFERENCES users(id), created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE TABLE remote_source_secrets (source_id TEXT PRIMARY KEY REFERENCES remote_sources(id) ON DELETE CASCADE, secret_ref TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE INDEX idx_remote_sources_library ON remote_sources(library_id, provider_type);
+CREATE INDEX idx_remote_sources_due ON remote_sources(next_sync_at);

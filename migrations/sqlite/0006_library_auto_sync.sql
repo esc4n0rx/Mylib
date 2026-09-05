@@ -1,0 +1,16 @@
+ALTER TABLE libraries ADD COLUMN auto_sync_enabled INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE libraries ADD COLUMN auto_sync_mode TEXT NOT NULL DEFAULT 'INTERVAL';
+ALTER TABLE libraries ADD COLUMN auto_sync_interval_minutes INTEGER NOT NULL DEFAULT 60;
+ALTER TABLE libraries ADD COLUMN auto_sync_hour INTEGER NOT NULL DEFAULT 3;
+ALTER TABLE libraries ADD COLUMN auto_sync_minute INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE libraries ADD COLUMN scan_on_startup INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE libraries ADD COLUMN next_sync_at TEXT;
+ALTER TABLE libraries ADD COLUMN last_auto_sync_at TEXT;
+ALTER TABLE libraries ADD COLUMN last_error TEXT;
+ALTER TABLE libraries ADD COLUMN last_error_at TEXT;
+ALTER TABLE scan_jobs ADD COLUMN trigger_source TEXT NOT NULL DEFAULT 'MANUAL';
+ALTER TABLE library_paths ADD COLUMN last_checked_at TEXT;
+ALTER TABLE library_paths ADD COLUMN last_available_at TEXT;
+ALTER TABLE library_paths ADD COLUMN last_error TEXT;
+ALTER TABLE server_config ADD COLUMN server_timezone TEXT NOT NULL DEFAULT 'America/Sao_Paulo';
+CREATE TABLE library_stats (library_id TEXT PRIMARY KEY REFERENCES libraries(id) ON DELETE CASCADE, total_size_bytes INTEGER NOT NULL DEFAULT 0, file_count INTEGER NOT NULL DEFAULT 0, media_item_count INTEGER NOT NULL DEFAULT 0, movie_count INTEGER NOT NULL DEFAULT 0, tv_show_count INTEGER NOT NULL DEFAULT 0, season_count INTEGER NOT NULL DEFAULT 0, episode_count INTEGER NOT NULL DEFAULT 0, unmatched_count INTEGER NOT NULL DEFAULT 0, missing_count INTEGER NOT NULL DEFAULT 0, path_count INTEGER NOT NULL DEFAULT 0, updated_at TEXT NOT NULL);

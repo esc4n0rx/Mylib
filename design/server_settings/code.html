@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MyLib - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707a6a",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#ff9fa8",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f8",
+                        "on-surface-variant": "#404a3c",
+                        "on-tertiary-fixed": "#3d0410",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#eae8e7",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1b1c1c",
+                        "secondary-fixed-dim": "#abd1a0",
+                        "inverse-primary": "#81db72",
+                        "secondary-container": "#c4eab8",
+                        "secondary-fixed": "#c7edbb",
+                        "surface": "#fbf9f8",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-tertiary-container": "#7a333c",
+                        "primary": "#0f6e11",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#0f6e11",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed": "#032103",
+                        "on-tertiary-fixed-variant": "#763039",
+                        "tertiary": "#934750",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#4a6b43",
+                        "primary-fixed": "#9df88b",
+                        "surface-variant": "#e4e2e1",
+                        "primary-fixed-dim": "#81db72",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-on-surface": "#f3f0f0",
+                        "secondary": "#46673f",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed-variant": "#2e4e29",
+                        "outline-variant": "#bfcab8",
+                        "on-primary-fixed": "#002201",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb2b8",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbf9f8",
+                        "on-primary-container": "#005706",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#75ce67",
+                        "on-primary-fixed-variant": "#005305"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "app-container-margin": "24px",
+                        "grid-gutter": "16px",
+                        "stack-compact": "8px",
+                        "section-gap": "32px",
+                        "stack-dense": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Geist"],
+                        "caption": ["Geist"],
+                        "card-title": ["Geist"],
+                        "page-title": ["Geist"],
+                        "body-md": ["Geist"],
+                        "section-title": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "card-title": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "page-title": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "section-title": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    },
+                    "boxShadow": {
+                        "app-shadow": "0 8px 30px rgba(0,0,0,0.10)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; background-color: #E9E8E5; }
+        .toggle-checkbox:checked { right: 0; border-color: #75CE67; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #75CE67; }
+        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(100%); border-color: white; }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex items-center justify-center p-app-container-margin md:p-app-container-margin p-3">
+<div class="flex w-full h-full bg-background rounded-xl overflow-hidden shadow-app-shadow border border-outline-variant">
+<!-- SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-container-low text-primary dark:text-primary-fixed w-[240px] h-full flex-shrink-0 border-r border-outline-variant flex flex-col p-stack-compact hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-3 p-4 mb-4 border-b border-outline-variant/30 pb-6">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined">storage</span>
+</div>
+<div>
+<h1 class="text-page-title font-page-title font-bold text-on-surface dark:text-on-primary-fixed leading-tight">MyLib</h1>
+<p class="font-caption text-caption text-on-surface-variant">Primary Node</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex-1 overflow-y-auto space-y-1 px-2">
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">movie</span>
+<span class="font-label-caps text-label-caps uppercase">Movies</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">tv</span>
+<span class="font-label-caps text-label-caps uppercase">TV Shows</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-caps text-label-caps uppercase">System Status</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">settings_input_component</span>
+<span class="font-label-caps text-label-caps uppercase">Hardware</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-caps text-label-caps uppercase">User Access</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container font-semibold rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors opacity-90 transition-all duration-150 flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-caps text-label-caps uppercase">General Settings</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="mt-auto px-2 pt-4 border-t border-outline-variant/30 space-y-1">
+<button class="w-full h-[38px] bg-primary-container text-[#163513] font-card-title text-card-title rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity mb-4">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                    Sync Server
+                </button>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="font-label-caps text-label-caps uppercase">Notifications</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+<span class="font-label-caps text-label-caps uppercase">Account</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim text-primary dark:text-primary-fixed-dim w-full h-16 border-b border-outline-variant flat no shadows transition-all duration-200 ease-in-out flex justify-between items-center px-app-container-margin w-full flex-shrink-0 hidden md:flex">
+<div class="flex items-center gap-6">
+<nav class="flex space-x-6">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 font-body-md text-body-md py-2" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 font-body-md text-body-md py-2" href="#">Activity</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 font-body-md text-body-md py-2" href="#">Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-64 hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container rounded-full border-none focus:ring-1 focus:ring-primary-container text-body-md font-body-md placeholder:text-on-surface-variant/50" placeholder="Search logs, settings..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small circular profile picture of an abstract generative art design in muted greens and off-whites, suited for a high-end server admin panel avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJlIg9cwVDQDZj_5x6iWbhmolhjb8nrhHY4aggZnewE3TqS_1c9dxvTs5iMQyBY6PE-UitdULzzQIFPU9Lsu-IQDDmkPpO2eEcRCHwBRqRJuIifdehy47mKqzGGPZ3xOy4efqNi0L8oejm9xqcnRtficGu2F4pTQ79pRsd5QCu8qrW8kaHATD-dRVA_os3RBTw0B_sDHpC4BTAKerGEUZxJoaoqQ9xhtBb104J56LHFm_52sBN9PJi"/>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<main class="flex-1 overflow-y-auto p-app-container-margin">
+<div class="max-w-6xl mx-auto flex gap-section-gap">
+<!-- Settings Sub-Nav -->
+<aside class="w-48 flex-shrink-0 hidden lg:block">
+<h2 class="font-section-title text-section-title text-on-surface mb-4">Configuration</h2>
+<nav class="flex flex-col space-y-1">
+<a class="px-3 py-2 rounded-lg bg-surface-container text-on-surface font-card-title text-card-title border-l-2 border-primary-container" href="#">General</a>
+<a class="px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors border-l-2 border-transparent" href="#">Network</a>
+<a class="px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors border-l-2 border-transparent" href="#">Libraries</a>
+<a class="px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors border-l-2 border-transparent" href="#">Plugins</a>
+<a class="px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors border-l-2 border-transparent" href="#">Transcoding</a>
+<a class="px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors border-l-2 border-transparent" href="#">Advanced</a>
+</nav>
+</aside>
+<!-- Settings Form Canvas -->
+<div class="flex-1 max-w-3xl">
+<div class="mb-section-gap flex justify-between items-end">
+<div>
+<h2 class="font-page-title text-page-title text-on-surface">General Settings</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage core configuration for this server instance.</p>
+</div>
+<button class="h-[38px] px-6 bg-primary-container text-[#163513] font-card-title text-card-title rounded hover:opacity-90 transition-opacity">
+                                Save Changes
+                            </button>
+</div>
+<div class="space-y-6">
+<!-- Identity Card -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6">
+<h3 class="font-section-title text-section-title text-on-surface mb-4">Server Identity</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-grid-gutter">
+<div class="flex flex-col gap-stack-dense">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Server Name</label>
+<input class="h-10 bg-surface rounded border border-outline-variant px-3 font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="text" value="Primary Node"/>
+<p class="font-caption text-caption text-outline mt-1">The friendly name used by clients to identify this server.</p>
+</div>
+<div class="flex flex-col gap-stack-dense">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Server Port</label>
+<input class="h-10 bg-surface rounded border border-outline-variant px-3 font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" type="number" value="8096"/>
+<p class="font-caption text-caption text-outline mt-1">Local HTTP port for incoming connections.</p>
+</div>
+</div>
+</div>
+<!-- Localization Card -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6">
+<h3 class="font-section-title text-section-title text-on-surface mb-4">Localization</h3>
+<div class="max-w-md flex flex-col gap-stack-dense">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Preferred Metadata Language</label>
+<div class="relative">
+<select class="w-full h-10 bg-surface rounded border border-outline-variant pl-3 pr-10 font-body-md text-body-md appearance-none focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all">
+<option value="en">English (US)</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="de">German</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<p class="font-caption text-caption text-outline mt-1">Default language used when scraping information for new media.</p>
+</div>
+</div>
+<!-- Access Card -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6">
+<h3 class="font-section-title text-section-title text-on-surface mb-4">Connectivity</h3>
+<div class="flex items-start justify-between p-4 bg-surface-container-low rounded border border-outline-variant/50">
+<div class="flex flex-col gap-1 pr-6">
+<span class="font-card-title text-card-title text-on-surface">Enable Remote Access</span>
+<span class="font-caption text-caption text-on-surface-variant">Allow clients outside your local network to connect to this server. This requires port forwarding on your router.</span>
+</div>
+<!-- Custom Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1 flex-shrink-0">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="remote_access" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer transition-colors duration-200 ease-in-out border border-outline-variant/30" for="remote_access"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

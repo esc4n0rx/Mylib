@@ -1,0 +1,96 @@
+{
+  "tab": "Sources",
+  "title": "Remote sources",
+  "description": "Add M3U playlists or Google Drive folders to this library.",
+  "empty": {
+    "title": "No remote sources",
+    "body": "Connect an M3U playlist or Google Drive to catalog remote media."
+  },
+  "addSource": "Add source",
+  "provider": {
+    "local": "Local",
+    "localDesc": "Folders on the server. Configure them under “Media locations”.",
+    "M3U_URL": "M3U by URL",
+    "M3U_FILE": "M3U file",
+    "GOOGLE_DRIVE": "Google Drive",
+    "m3uDesc": "A playlist you are authorized to access.",
+    "driveDesc": "Pick folders from a connected Google account."
+  },
+  "status": {
+    "READY": "Ready",
+    "SYNCING": "Syncing",
+    "WARNING": "Warning",
+    "AUTH_REQUIRED": "Re-authentication needed",
+    "UNAVAILABLE": "Unavailable",
+    "ERROR": "Error",
+    "DISABLED": "Disabled"
+  },
+  "form": {
+    "name": "Name",
+    "url": "Playlist URL",
+    "urlHelper": "http(s) address of the .m3u/.m3u8 playlist.",
+    "file": ".m3u or .m3u8 file",
+    "chooseFile": "Choose file",
+    "analyze": "Analyze list",
+    "analyzing": "Analyzing…",
+    "autoSync": "Sync automatically",
+    "intervalMinutes": "Interval (minutes)",
+    "create": "Create source",
+    "cancel": "Cancel"
+  },
+  "preview": {
+    "title": "Playlist found",
+    "totalEntries": "{{count}} entries",
+    "movies": "Movies",
+    "series": "Series",
+    "unknown": "Unclassified",
+    "selectAll": "Select all",
+    "searchCategories": "Search categories",
+    "noMatches": "No category matches the search.",
+    "showMore": "Show more ({{count}})",
+    "confirm": "Save selection and sync",
+    "saving": "Saving…"
+  },
+  "card": {
+    "lastSync": "Last sync",
+    "nextSync": "Next sync",
+    "never": "Never",
+    "entries": "{{count}} entries",
+    "entriesLabel": "Entries",
+    "sync": "Sync now",
+    "syncing": "Syncing…",
+    "editSelection": "Edit selection",
+    "disable": "Disable",
+    "enable": "Enable",
+    "remove": "Remove",
+    "removeConfirm": "Remove this source and its catalog entries?"
+  },
+  "sync": {
+    "started": "Sync started.",
+    "done": "Sync complete: {{new}} new, {{updated}} updated, {{missing}} missing.",
+    "notModified": "The playlist has not changed since the last sync."
+  },
+  "googleDrive": {
+    "title": "Google Drive",
+    "connect": "Connect with Google",
+    "connecting": "Connecting…",
+    "connected": "Connected",
+    "reconnect": "Reconnect",
+    "disconnect": "Disconnect",
+    "notConfigured": "Google Drive integration is not configured on this server.",
+    "selectFolders": "Select folders",
+    "myDrive": "My Drive",
+    "loadMore": "Load more",
+    "loading": "Loading…",
+    "selectedFolders": "{{count}} folder(s) selected",
+    "chooseAccount": "Account",
+    "noFolders": "This folder has no subfolders."
+  },
+  "detail": {
+    "origin": "Origin",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "source": "Source",
+    "lastSeen": "Last seen"
+  }
+}

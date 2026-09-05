@@ -1,0 +1,106 @@
+{
+  "pageTitle": "Bibliotecas",
+  "addLibrary": "Adicionar biblioteca",
+  "createLibrary": "Criar biblioteca",
+  "empty": {
+    "title": "Nenhuma biblioteca ainda",
+    "body": "Adicione uma biblioteca de filmes ou séries para começar a catalogar sua mídia."
+  },
+  "type": { "movie": "Filmes", "tvShow": "Séries", "MOVIE": "FILME", "TV_SHOW": "SÉRIE" },
+  "privacy": {
+    "label": "Privacidade",
+    "public": "Pública",
+    "private": "Privada",
+    "publicDesc": "Disponível para todos os usuários autenticados.",
+    "privateDesc": "Exige uma senha da biblioteca para ser desbloqueada.",
+    "PUBLIC": "PÚBLICA",
+    "PRIVATE": "PRIVADA"
+  },
+  "form": {
+    "name": "Nome",
+    "description": "Descrição",
+    "type": "Tipo",
+    "libraryPassword": "Senha da biblioteca",
+    "confirmPassword": "Confirmar senha",
+    "minimumAge": "Idade mínima",
+    "metadataLanguage": "Idioma dos metadados",
+    "metadataRegion": "Região dos metadados",
+    "paths": "Locais de mídia",
+    "folderPath": "Caminho da pasta",
+    "addLocation": "Adicionar local",
+    "validate": "Validar",
+    "validating": "Validando…"
+  },
+  "pathStatus": {
+    "valid": "Legível",
+    "notFound": "Não encontrado",
+    "notReadable": "Sem permissão de leitura",
+    "invalid": "Inválido"
+  },
+  "card": {
+    "pathsCount": "{{count}} local",
+    "pathsCount_other": "{{count}} locais",
+    "lastScan": "Última varredura",
+    "never": "Nunca",
+    "open": "Abrir",
+    "scan": "Escanear",
+    "edit": "Editar"
+  },
+  "detail": {
+    "overview": "Visão geral",
+    "paths": "Locais",
+    "sources": "Fontes",
+    "sync": "Sincronização",
+    "scan": "Varredura",
+    "unmatched": "Não identificados",
+    "settings": "Configurações",
+    "itemCount": "Itens catalogados",
+    "unmatchedCount": "Não identificados",
+    "status": "Status"
+  },
+  "stats": { "size": "Tamanho total", "items": "Itens", "files": "Arquivos", "unmatched": "Não identificados" },
+  "status": { "READY": "Pronta", "SCANNING": "Escaneando", "SYNCING": "Sincronizando", "PATH_UNAVAILABLE": "Local indisponível", "ERROR": "Erro", "DISABLED": "Desativada" },
+  "paths": { "unavailableWarning": "Um ou mais locais da biblioteca estão indisponíveis. Verifique o caminho e as permissões." },
+  "sync": {
+    "title": "Sincronização automática", "enabled": "Ativar sincronização automática", "mode": "Modo", "interval": "Por intervalo", "schedule": "Horário diário", "intervalMinutes": "Intervalo em minutos", "hour": "Hora", "minute": "Minuto", "onStartup": "Escanear ao iniciar o servidor", "next": "Próxima sincronização", "save": "Salvar automação"
+  },
+  "scan": {
+    "start": "Escanear biblioteca",
+    "cancel": "Cancelar varredura",
+    "cancelConfirmTitle": "Cancelar varredura?",
+    "cancelConfirmBody": "A varredura em andamento será interrompida.",
+    "scanning": "Escaneando biblioteca",
+    "status": "Status",
+    "discovered": "Descobertos",
+    "processed": "Processados",
+    "matched": "Identificados",
+    "unmatched": "Não identificados",
+    "failed": "Com falha",
+    "history": "Histórico de varreduras",
+    "noHistory": "Nenhuma varredura registrada.",
+    "states": {
+      "QUEUED": "Na fila",
+      "SCANNING": "Escaneando",
+      "MATCHING": "Identificando",
+      "PERSISTING": "Salvando",
+      "COMPLETED": "Concluída",
+      "COMPLETED_WITH_WARNINGS": "Concluída com avisos",
+      "FAILED": "Falhou",
+      "CANCELLED": "Cancelada",
+      "SKIPPED_ALREADY_RUNNING": "Ignorada: já em execução"
+    }
+  },
+  "unmatched": {
+    "title": "Mídia não identificada",
+    "identify": "Identificar",
+    "identifyNote": "Busque no TMDB e associe manualmente. Para séries, todos os episódios com o mesmo título detectado serão associados juntos.",
+    "empty": "Nenhum item pendente de identificação."
+  },
+  "toast": {
+    "created": "Biblioteca criada",
+    "scanStarted": "Varredura iniciada",
+    "scanCompleted": "Varredura concluída",
+    "pathValidated": "Caminho validado",
+    "syncSaved": "Automação salva"
+  }
+}

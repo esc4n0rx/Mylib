@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MyLib - Interstellar Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002201",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-fixed": "#032103",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf9f8",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#0f6e11",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-container": "#f0eded",
+                        "secondary-fixed-dim": "#abd1a0",
+                        "on-surface": "#1b1c1c",
+                        "primary-fixed": "#9df88b",
+                        "tertiary-fixed": "#ffdadb",
+                        "tertiary": "#934750",
+                        "primary-fixed-dim": "#81db72",
+                        "on-tertiary-fixed": "#3d0410",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#81db72",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bfcab8",
+                        "on-secondary-container": "#4a6b43",
+                        "tertiary-container": "#ff9fa8",
+                        "secondary-container": "#c4eab8",
+                        "on-tertiary-fixed-variant": "#763039",
+                        "surface-variant": "#e4e2e1",
+                        "on-primary-container": "#005706",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed-variant": "#2e4e29",
+                        "on-tertiary-container": "#7a333c",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005305",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "surface-tint": "#0f6e11",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#c7edbb",
+                        "on-surface-variant": "#404a3c",
+                        "tertiary-fixed-dim": "#ffb2b8",
+                        "outline": "#707a6a",
+                        "surface-dim": "#dcd9d9",
+                        "secondary": "#46673f",
+                        "surface-container-high": "#eae8e7",
+                        "surface-bright": "#fbf9f8",
+                        "primary-container": "#75ce67"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-dense": "4px",
+                        "app-container-margin": "24px",
+                        "grid-gutter": "16px",
+                        "section-gap": "32px",
+                        "stack-compact": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Geist"],
+                        "page-title": ["Geist"],
+                        "caption": ["Geist"],
+                        "card-title": ["Geist"],
+                        "section-title": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "page-title": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "card-title": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "section-title": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; background-color: #E9E8E5; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        .border-subtle { border: 1px solid theme('colors.outline-variant'); }
+        .app-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); }
+        .glass-card { background: rgba(251, 249, 248, 0.7); backdrop-filter: blur(12px); border: 1px solid theme('colors.outline-variant'); }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface p-app-container-margin flex flex-col md:flex-row gap-4 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container w-[240px] h-full flex-shrink-0 flex flex-col p-stack-compact border-r border-outline-variant rounded-xl app-shadow overflow-y-auto hidden md:flex">
+<div class="mb-section-gap px-4 pt-4">
+<h1 class="text-page-title font-page-title font-bold text-on-surface">MyLib</h1>
+<p class="font-caption text-caption text-on-surface-variant">Primary Node</p>
+</div>
+<ul class="flex flex-col gap-1 flex-1">
+<li><a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-semibold rounded-lg hover:bg-secondary-fixed-dim/20 transition-colors" href="#"><span class="material-symbols-outlined" data-icon="movie">movie</span><span class="font-label-caps text-label-caps uppercase">Movies</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="tv">tv</span><span class="font-label-caps text-label-caps uppercase">TV Shows</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="analytics">analytics</span><span class="font-label-caps text-label-caps uppercase">System Status</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span><span class="font-label-caps text-label-caps uppercase">Hardware</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="group">group</span><span class="font-label-caps text-label-caps uppercase">User Access</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="settings">settings</span><span class="font-label-caps text-label-caps uppercase">General Settings</span></a></li>
+</ul>
+<button class="w-full bg-primary-container text-on-primary-container h-[38px] rounded-lg font-card-title text-card-title flex items-center justify-center gap-2 mt-4 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="sync">sync</span> Sync Server
+        </button>
+<div class="mt-4 pt-4 border-t border-outline-variant flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="notifications">notifications</span><span class="font-label-caps text-label-caps uppercase">Notifications</span></a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span><span class="font-label-caps text-label-caps uppercase">Account</span></a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 bg-surface rounded-xl app-shadow overflow-y-auto flex flex-col relative h-[calc(100vh-48px)]">
+<!-- Hero Section -->
+<div class="relative w-full h-[512px] min-h-[400px] flex-shrink-0">
+<!-- Backdrop Image -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A cinematic, highly detailed wide shot of a futuristic spacecraft moving through a visually stunning, swirling galaxy. The scene is lit by dramatic, high-contrast lighting emphasizing the vastness of space. The overall aesthetic is professional, clean, and modern, fitting a high-end media application interface. Colors are deep cosmic blues and blacks with bright, vibrant starlight accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8q3D8F7qBdSNbE1e38Ivn4Q5rJwhCVFL5rF6PBn5WK9SQi-DCaF8eEDUDssHYPBKUz621SUL25zie0JxD-OiWVmJtgaEdYsdjGrpqguz7Tn6hYBCdzCsZaNHnUrBV2eATEi9KfkIikh3uu6-0nD-CFJOibRtLCA_nMYie-9_ZLSFLhS4amO1C80E04r_1X4ZLeNuosKfgNG1Cq5z8eV1acftZl5IEOKEEVrdPUc9XzOKz5MHAuFCT')">
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent"></div>
+</div>
+<!-- TopAppBar (Floating over hero) -->
+<div class="absolute top-0 left-0 right-0 h-16 flex justify-between items-center px-6 w-full z-10">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-surface/50 backdrop-blur hover:bg-surface/80 flex items-center justify-center text-on-surface transition-colors border-subtle">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<!-- Breadcrumbs -->
+<div class="hidden md:flex font-body-md text-body-md text-on-surface/80 items-center gap-2">
+<a class="hover:text-primary transition-colors" href="#">Movies</a>
+<span class="material-symbols-outlined text-sm opacity-50" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Sci-Fi</a>
+<span class="material-symbols-outlined text-sm opacity-50" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface font-semibold">Interstellar</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-surface/50 backdrop-blur hover:bg-surface/80 flex items-center justify-center text-on-surface transition-colors border-subtle">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface/50 backdrop-blur hover:bg-surface/80 flex items-center justify-center text-on-surface transition-colors border-subtle">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Hero Content -->
+<div class="absolute bottom-0 left-0 right-0 p-8 flex flex-col md:flex-row items-end gap-8 z-10">
+<!-- Poster -->
+<div class="w-48 h-72 rounded-xl shadow-2xl flex-shrink-0 border border-outline-variant overflow-hidden hidden md:block">
+<img class="w-full h-full object-cover" data-alt="A high-resolution, professional movie poster for a sci-fi film featuring an astronaut walking on a barren, ice-covered planet with a massive, stylized wormhole or black hole in the sky above. The lighting is dramatic and moody, utilizing a cool color palette of icy blues and stark whites against a deep, dark sky. The aesthetic is clean, minimalist, and cinematic, suitable for a premium media library interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdRM6GXFK_ABJYKXzg27uZhEstKnkUslMgThuD2nAmAtOlkD_qLXGSxhYPLszB5lKncGrSUxTGtxJl3q0uvPLkO_xadhLmXZDS-X34FdAwNfMJuw2u9u0wCWvz_UXvcBv0Yrz7lzzIesCy4sWBmk2v-VUm9FcxcQfDMIliQtMXKpAqJte21KGY6DzAaeg7Hf8v6MjaosD4wNT85-yScLp-Mwmt9q90ZbX6yj4t1M7lafTpI6MzEL1O"/>
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col gap-4">
+<h1 class="text-5xl font-page-title font-bold text-on-surface tracking-tight">INTERSTELLAR</h1>
+<div class="flex flex-wrap items-center gap-3 font-body-md text-body-md text-on-surface-variant">
+<span class="px-2 py-1 rounded bg-surface-container-high font-semibold">2014</span>
+<span class="px-2 py-1 rounded border border-outline-variant">PG-13</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 2h 49m</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="movie_filter">movie_filter</span> Sci-Fi, Drama, Adventure</span>
+</div>
+<div class="flex items-center gap-6 font-card-title text-card-title">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-500 icon-fill" data-icon="star">star</span>
+<span class="font-bold text-on-surface">8.7</span>
+<span class="text-on-surface-variant font-body-md text-body-md">IMDb</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500 icon-fill" data-icon="theaters">theaters</span>
+<span class="font-bold text-on-surface">8.4</span>
+<span class="text-on-surface-variant font-body-md text-body-md">TMDB</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-3 mt-2">
+<button class="h-[38px] px-6 rounded-full bg-primary-container text-on-primary-container font-card-title text-card-title flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined icon-fill" data-icon="play_arrow">play_arrow</span> Play
+                        </button>
+<button class="h-[38px] px-4 rounded-full border-subtle bg-surface hover:bg-surface-container transition-colors font-card-title text-card-title flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined" data-icon="resume">resume</span> Resume
+                        </button>
+<button class="w-[38px] h-[38px] rounded-full border-subtle bg-surface hover:bg-surface-container transition-colors flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" data-icon="favorite_border">favorite_border</span>
+</button>
+<button class="w-[38px] h-[38px] rounded-full border-subtle bg-surface hover:bg-surface-container transition-colors flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Sections -->
+<div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Main Info -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<!-- Synopsis -->
+<section>
+<h2 class="font-section-title text-section-title text-on-surface mb-3 border-b border-outline-variant pb-2">Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival. As Earth's environment fails, former NASA pilot Cooper is tasked to lead a mission to find a new habitable planet. Leaving his family behind, he embarks on an interstellar journey that bends the rules of time and space, testing the limits of human resilience and the enduring power of love.
+                    </p>
+</section>
+<!-- Media Technical Data (Bento Grid Style) -->
+<section>
+<h2 class="font-section-title text-section-title text-on-surface mb-3 border-b border-outline-variant pb-2">Technical Details</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="glass-card rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2 text-3xl" data-icon="high_quality">high_quality</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Quality</span>
+<span class="font-card-title text-card-title text-on-surface">4K UHD</span>
+</div>
+<div class="glass-card rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2 text-3xl" data-icon="videocam">videocam</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Video</span>
+<span class="font-card-title text-card-title text-on-surface">HEVC HDR10</span>
+</div>
+<div class="glass-card rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2 text-3xl" data-icon="volume_up">volume_up</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Audio</span>
+<span class="font-card-title text-card-title text-on-surface">Dolby Atmos 7.1</span>
+</div>
+<div class="glass-card rounded-lg p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2 text-3xl" data-icon="save">save</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Size</span>
+<span class="font-card-title text-card-title text-on-surface">72.4 GB</span>
+</div>
+</div>
+</section>
+<!-- Cast -->
+<section>
+<h2 class="font-section-title text-section-title text-on-surface mb-3 border-b border-outline-variant pb-2 flex justify-between items-center">
+                        Top Cast
+                        <button class="text-primary font-body-md text-body-md hover:underline">View All</button>
+</h2>
+<div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+<div class="flex flex-col items-center min-w-[100px]">
+<img class="w-20 h-20 rounded-full object-cover mb-2 border-subtle shadow-sm" data-alt="A professional headshot of a rugged, intense-looking male astronaut in a modern, streamlined spacesuit. The lighting is clean and cinematic, with a bright white background to emphasize a crisp, high-end UI aesthetic. The mood is serious and determined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMMo-OT-T0ZWl2nxpwSD3bcAYGwkiJ54s0h5vvqugPR7brDKT2P9XXae7UFhZwIbuXIaw4X_cIdPqmiaHCsykagRkGkK4du0sJNNfy-BCyk3eziT6MPMwRxXYdfUrmN2cAoKozB6inW8e_QR3brAB8ZTeEg0GlMONFF4MVA26gcfjcCFgvL02Of1h_26DEZIiWulGoIWOxS9ePw0jyOz2qkqWWEa5adtPpcOyfWUoBIxlyARMxlg7-"/>
+<span class="font-card-title text-card-title text-center text-on-surface leading-tight">Matthew<br/>McConaughey</span>
+<span class="font-caption text-caption text-on-surface-variant text-center mt-1">Cooper</span>
+</div>
+<div class="flex flex-col items-center min-w-[100px]">
+<img class="w-20 h-20 rounded-full object-cover mb-2 border-subtle shadow-sm" data-alt="A professional headshot of a focused female astronaut with short dark hair in a modern, streamlined spacesuit. The lighting is clean and cinematic, with a bright white background to emphasize a crisp, high-end UI aesthetic. The mood is intelligent and determined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDIwKQdMhXWRmj5WEIlcw0V-JiCiw0QUhV7t_3rb-tAo8noRpej1262sx7EMQb1msdmPpoi9KE9flVf2dgbJLi6IKuTXK_xJxeum1_8kPt5E9jyv0BMo9MpFKtwvPBViMInpIKMd8OSCN1sgXBvwXlWO_upjpimy4A5GmPe4tftRNu0_7M8CwkcgfnG257Yj3gpeHoWqkOrWmavarSbjE26WmEH7jvlJfoG3ach4iV03S-XEoLQ_2u"/>
+<span class="font-card-title text-card-title text-center text-on-surface leading-tight">Anne<br/>Hathaway</span>
+<span class="font-caption text-caption text-on-surface-variant text-center mt-1">Brand</span>
+</div>
+<div class="flex flex-col items-center min-w-[100px]">
+<img class="w-20 h-20 rounded-full object-cover mb-2 border-subtle shadow-sm" data-alt="A professional headshot of an intelligent-looking female scientist with red hair in casual earth clothing. The lighting is clean and cinematic, with a bright white background to emphasize a crisp, high-end UI aesthetic. The mood is thoughtful and analytical." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPqYw2YzQDg-SccIzGpTkanuMcL2TChfRe6YqzrO_7lyMq703RgBniyYe6UgKI3i4p9mJyBQOmGo6-6x_sp7fLbv-dY8Qxbuu20DONpHinbsCuywvx4H4Q5x_JHaOiVheVX-wGHmNNk68BkfNfBtCfF2aj1huqB-0kwdi0WWE1G3uHxzoPMT2v8cGgBy_ed8pTc3HfaAQf3wBrrwCC87ODADufncOr5NIlaQE8HPlTPKqKdVPb0VhA"/>
+<span class="font-card-title text-card-title text-center text-on-surface leading-tight">Jessica<br/>Chastain</span>
+<span class="font-caption text-caption text-on-surface-variant text-center mt-1">Murph</span>
+</div>
+<div class="flex flex-col items-center min-w-[100px]">
+<img class="w-20 h-20 rounded-full object-cover mb-2 border-subtle shadow-sm" data-alt="A professional headshot of a seasoned older male scientist in a tweed jacket. The lighting is clean and cinematic, with a bright white background to emphasize a crisp, high-end UI aesthetic. The mood is wise and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP-eug7J9KjhxXg-zxciwHELRzNwbsHSEZo_mLdJJhbgPLn4JDGu8vAAbNkvZERM2FCqg6l5lDmHLXkAG_ghNNvk3xjSCfNt3eoyXwfWhYXNVBTZbQfWMCpvejDDtFanrt0N7k8hQmy7mCPXDi3Q2iSy_H7ZUQOoaQQnwFXI2UjKeN8lM-B56d9LRFw-yZmseWfSBS24RjLE-D_VAsIFq1FmIQjLnMPpiTO2Je9hm7eNyVIxSej7PX"/>
+<span class="font-card-title text-card-title text-center text-on-surface leading-tight">Michael<br/>Caine</span>
+<span class="font-caption text-caption text-on-surface-variant text-center mt-1">Prof. Brand</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Meta & Actions -->
+<div class="flex flex-col gap-6">
+<!-- Crew Info -->
+<div class="bg-surface-container-low rounded-xl p-4 border-subtle">
+<h3 class="font-section-title text-section-title text-on-surface mb-4">Crew</h3>
+<div class="flex flex-col gap-3 font-body-md text-body-md">
+<div>
+<span class="font-semibold text-on-surface block">Director</span>
+<span class="text-on-surface-variant">Christopher Nolan</span>
+</div>
+<div>
+<span class="font-semibold text-on-surface block">Writers</span>
+<span class="text-on-surface-variant">Jonathan Nolan, Christopher Nolan</span>
+</div>
+</div>
+</div>
+<!-- Media Versions -->
+<div class="bg-surface-container-low rounded-xl p-4 border-subtle">
+<h3 class="font-section-title text-section-title text-on-surface mb-4 flex justify-between items-center">
+                        Versions
+                        <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs">2 Files</span>
+</h3>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface border border-primary/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span>
+<div>
+<span class="font-card-title text-card-title block text-on-surface">4K UHD HDR</span>
+<span class="font-caption text-caption text-on-surface-variant">72.4 GB • /movies/sci-fi/...</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface border-subtle hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-2 opacity-70">
+<span class="material-symbols-outlined text-on-surface-variant text-xl" data-icon="hd">hd</span>
+<div>
+<span class="font-card-title text-card-title block text-on-surface">1080p Web-DL</span>
+<span class="font-caption text-caption text-on-surface-variant">12.1 GB • /movies/sci-fi/...</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</div>
+</div>
+</div>
+<!-- Detailed File Info -->
+<div class="bg-surface-container-low rounded-xl p-4 border-subtle">
+<h3 class="font-section-title text-section-title text-on-surface mb-4">File Info</h3>
+<ul class="font-caption text-caption text-on-surface-variant flex flex-col gap-2">
+<li class="flex justify-between border-b border-outline-variant/50 pb-1"><span>Container</span> <span class="text-on-surface font-medium">MKV</span></li>
+<li class="flex justify-between border-b border-outline-variant/50 pb-1"><span>Bitrate</span> <span class="text-on-surface font-medium">65.2 Mbps</span></li>
+<li class="flex justify-between border-b border-outline-variant/50 pb-1"><span>Framerate</span> <span class="text-on-surface font-medium">23.976 fps</span></li>
+<li class="flex justify-between pb-1"><span>Resolution</span> <span class="text-on-surface font-medium">3840x2160</span></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Related Content -->
+<section class="p-8 pt-0">
+<h2 class="font-section-title text-section-title text-on-surface mb-4 border-b border-outline-variant pb-2">More Like This</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<!-- Related Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, minimalist movie poster for a sci-fi thriller featuring a bright red circular motif against a stark white background. The aesthetic is modern, high-end, and perfectly suited for a light-mode media library UI. The design implies space travel and danger." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgCg8r09Fj6ZSdNknbwAMfVVle3da5KrLZcSLggykNiRouFzauLKh8xS06HAu4h7O5-g2sctPT7-8jRm8nHuswaY8iLgT9OP0G-G2PAQ7DlDCLUzSD1cK3p_lb7QNYxKroVufbuu7PAmnQDcf_r0rZDPbzjAGHNfSMIx_LbkxfTSYnkNI2-MgsnQsqKZ5ASSmSi8cSfimrzPV9aY0PayPP41Gsem3GduMsEpjr3Kitukv28muRn268"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="font-card-title text-card-title text-on-surface truncate">The Martian</h4>
+<p class="font-caption text-caption text-on-surface-variant">2015</p>
+</div>
+<!-- Related Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, minimalist movie poster for a mind-bending sci-fi film featuring an intricate geometric pattern folding in on itself on a light grey background. The aesthetic is modern, high-end, and perfectly suited for a light-mode media library UI. The design implies complex concepts and architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcxljeoGrqMsRPuNiemzvKpqULKSn9nIOUQJY-kb8qbusaN3jayz3FAhwclGZlxo53A92S_9IkcDV_-AH-UlJbn70qRuhuKXvAFbLchsZvlft1Sh5mffoCrvb9_ScewVfDdh4lcRprUODqr7AIYRiGxiOzkHSoLXPVb4BsnQNi3Lr2rfKAWic-pc49-1_XlT3gcRcsVDp_vkJaBu4eEygS_J9H3Y8Ufs2ujgHCi-8yHQQaMjqoKbC5"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="font-card-title text-card-title text-on-surface truncate">Inception</h4>
+<p class="font-caption text-caption text-on-surface-variant">2010</p>
+</div>
+<!-- Related Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, minimalist movie poster for a space drama featuring a solitary, stylized white spacecraft against a pale blue, almost white void. The aesthetic is modern, high-end, and perfectly suited for a light-mode media library UI. The design implies isolation and exploration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0JMmSkzDbIRIK873rEIJjmySyNDl-KG0-iYdKsV8sRvqFU-F87wYxKVHAzQTIP7prdP3opCFwtXyvE8Ve1WhnYWz_cOEkFrydOSarS2OhLmiU-vz_hLjYsDDxRp5ofxfCn6fPMKQ3EKABQvBGd8xDVtqfG0sFFIKC30DNENGeN-Kcf7-Tto4bPR8TydruGh_hByC5u9PsmYOvKZWXqdC9EljgKRrXZKvCLD24v2J-nTHl28d9wbf"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="font-card-title text-card-title text-on-surface truncate">Gravity</h4>
+<p class="font-caption text-caption text-on-surface-variant">2013</p>
+</div>
+<!-- Related Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative w-full aspect-[2/3] rounded-lg overflow-hidden border border-outline-variant mb-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, minimalist movie poster for a contemplative sci-fi film featuring a sleek, silver, oval-shaped spaceship hovering over a misty, pale landscape. The aesthetic is modern, high-end, and perfectly suited for a light-mode media library UI. The design implies first contact and mystery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXYrDSzPcqoB1k58JUUUS7LxRDEQfPW_S2Ja_YVbqdVEL0K_WC5UdDOUP5laxaOTFIJ0MoLakp9cNL9BiVoR447f_tE9tQolfc-qBBEiGL8TJEkke9Y-IUUg8Tm541TadHJTgJCf107bPJZ539cqwJ6g36NNMQNbHCk-vnw9v0jSQzkRveMqCceFtHsI-A7Ad-sSyL_tls1m98rCecSfXIunsKNFqYH9JyoJssGg2-IvZOv9_3IJGy"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<h4 class="font-card-title text-card-title text-on-surface truncate">Arrival</h4>
+<p class="font-caption text-caption text-on-surface-variant">2016</p>
+</div>
+</div>
+</section>
+</main>
+</body></html>

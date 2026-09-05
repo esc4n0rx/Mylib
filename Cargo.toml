@@ -1,0 +1,43 @@
+[package]
+name = "mylib-server"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+description = "Self-hosted media library server"
+license = "MIT"
+readme = "README.md"
+default-run = "mylib-server"
+
+[dependencies]
+argon2 = "0.5"
+async-trait = "0.1"
+axum = { version = "0.8", features = ["macros"] }
+base64 = "0.22"
+chacha20poly1305 = "0.10"
+chrono = { version = "0.4", features = ["serde"] }
+jsonwebtoken = "9"
+rand = "0.8"
+regex = "1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream"] }
+futures-util = "0.3"
+rust-embed = { version = "8", features = ["mime-guess"] }
+mime_guess = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "any", "sqlite", "mysql", "chrono", "uuid"] }
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7", features = ["io"] }
+tower = { version = "0.5", features = ["util"] }
+tower-http = { version = "0.6", features = ["cors", "trace", "set-header", "catch-panic"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+urlencoding = "2"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+sysinfo = "0.33"
+
+[dev-dependencies]
+http-body-util = "0.1"
+tempfile = "3"

@@ -1,0 +1,6 @@
+CREATE TABLE m3u_entries (id TEXT PRIMARY KEY, source_id TEXT NOT NULL REFERENCES remote_sources(id) ON DELETE CASCADE, external_key TEXT NOT NULL, entry_hash TEXT NOT NULL, raw_name TEXT NOT NULL, clean_title TEXT NOT NULL, year INTEGER, media_type TEXT NOT NULL, category TEXT, subcategory TEXT, season_number INTEGER, episode_number INTEGER, tvg_logo TEXT, stream_ref TEXT NOT NULL, stream_sealed INTEGER NOT NULL DEFAULT 0, is_selected INTEGER NOT NULL DEFAULT 0, sync_status TEXT NOT NULL DEFAULT 'NEW', media_file_id TEXT, last_seen_at TEXT NOT NULL, missing_since TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(source_id, external_key));
+CREATE INDEX idx_m3u_entries_key ON m3u_entries(source_id, external_key);
+CREATE INDEX idx_m3u_entries_group ON m3u_entries(source_id, category, subcategory);
+CREATE INDEX idx_m3u_entries_type ON m3u_entries(source_id, media_type);
+CREATE TABLE m3u_source_selections (id TEXT PRIMARY KEY, source_id TEXT NOT NULL REFERENCES remote_sources(id) ON DELETE CASCADE, media_type TEXT NOT NULL, category TEXT, subcategory TEXT, include_all INTEGER NOT NULL DEFAULT 0, is_enabled INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE INDEX idx_m3u_selections_source ON m3u_source_selections(source_id);

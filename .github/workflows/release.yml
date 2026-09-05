@@ -1,0 +1,102 @@
+# Builds the single-binary MyLib server (web bundle embedded) for Windows, Linux and macOS
+# and publishes the archives to a GitHub Release whenever a `v*` tag is pushed.
+#
+# Asset naming is a contract with scripts/install.sh and scripts/install.ps1 — keep the
+# `mylib-server-<os>-<arch>.<ext>` pattern in sync if it ever changes.
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            asset: mylib-server-windows-x86_64.zip
+            bin: mylib-server.exe
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            asset: mylib-server-linux-x86_64.tar.gz
+            bin: mylib-server
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            asset: mylib-server-macos-arm64.tar.gz
+            bin: mylib-server
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            asset: mylib-server-macos-x86_64.tar.gz
+            bin: mylib-server
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build web frontend
+        run: |
+          npm --prefix web ci
+          npm --prefix web run build
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build server (embeds web/dist)
+        run: cargo build --release --locked --target ${{ matrix.target }}
+
+      - name: Package (unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          stage=$(mktemp -d)
+          cp target/${{ matrix.target }}/release/${{ matrix.bin }} "$stage/"
+          cp README.md LICENSE "$stage/"
+          tar -C "$stage" -czf "${{ matrix.asset }}" .
+
+      - name: Package (windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $stage = New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP 'stage')
+          Copy-Item "target/${{ matrix.target }}/release/${{ matrix.bin }}" $stage
+          Copy-Item README.md, LICENSE $stage
+          Compress-Archive -Path (Join-Path $stage '*') -DestinationPath "${{ matrix.asset }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
