@@ -15,7 +15,10 @@ export const adminStepSchema = z
       .regex(/^[a-zA-Z0-9_.-]+$/),
     displayName: z.string().trim().min(1).max(64),
     email: z.string().trim().email().optional().or(z.literal('')),
-    password: z.string().min(8).max(128),
+    // Must match the backend's validate_password minimum (see src/features/auth/mod.rs) —
+    // otherwise the wizard accepts a password here that setup then rejects with a generic,
+    // unhelpful error on the last step.
+    password: z.string().min(10).max(128),
     confirmPassword: z.string(),
   })
   .refine((v) => v.password === v.confirmPassword, {

@@ -11,6 +11,8 @@
   "codes": {
     "INVALID_CREDENTIALS": "Usuário ou senha inválidos.",
     "RATE_LIMITED": "Muitas tentativas. Tente novamente mais tarde.",
+    "WEAK_PASSWORD": "A senha deve ter pelo menos 10 caracteres e não pode ser uma senha comum.",
+    "INVALID_USERNAME": "O usuário deve ter de 3 a 32 caracteres e conter apenas letras, números, _, - ou .",
     "SETUP_ALREADY_COMPLETED": "O servidor MyLib já foi configurado.",
     "INVALID_SERVER_NAME": "O nome do servidor deve ter de 1 a 128 caracteres.",
     "DATABASE_CONNECTION_FAILED": "Não foi possível conectar ao banco de dados informado.",

@@ -44,6 +44,12 @@ export class ApiError extends Error {
 
 export function kindForStatus(status: number): ApiErrorKind {
   switch (status) {
+    // The backend (AppError::validation) always answers bad input with 400, not 422 — keep
+    // both mapped to 'validation' so an error code missing from errors:codes still degrades to
+    // a sensible message instead of the generic fallback.
+    case 400:
+    case 422:
+      return 'validation';
     case 401:
       return 'unauthorized';
     case 403:
@@ -52,8 +58,6 @@ export function kindForStatus(status: number): ApiErrorKind {
       return 'notFound';
     case 409:
       return 'conflict';
-    case 422:
-      return 'validation';
     case 429:
       return 'rateLimit';
     default:

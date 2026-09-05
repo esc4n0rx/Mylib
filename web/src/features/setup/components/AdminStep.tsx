@@ -66,6 +66,7 @@ export function AdminStep({ formId, values, onNext }: AdminStepProps) {
               label={t('administrator.password')}
               required
               error={Boolean(errors.password)}
+              helperText={errors.password ? t('administrator.passwordMinLength') : undefined}
               {...register('password')}
             />
             {password ? (

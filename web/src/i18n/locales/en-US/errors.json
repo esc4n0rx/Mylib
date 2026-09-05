@@ -11,6 +11,8 @@
   "codes": {
     "INVALID_CREDENTIALS": "Invalid username or password.",
     "RATE_LIMITED": "Too many attempts. Try again later.",
+    "WEAK_PASSWORD": "Password must be at least 10 characters and not a common password.",
+    "INVALID_USERNAME": "Username must be 3-32 characters and contain only letters, numbers, _, - or .",
     "SETUP_ALREADY_COMPLETED": "The MyLib server has already been configured.",
     "INVALID_SERVER_NAME": "Server name must be 1-128 characters.",
     "DATABASE_CONNECTION_FAILED": "Unable to connect to the configured database.",

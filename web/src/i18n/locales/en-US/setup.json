@@ -25,6 +25,7 @@
     "email": "Email (optional)",
     "password": "Password",
     "confirmPassword": "Confirm password",
+    "passwordMinLength": "Password must be at least 10 characters.",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "strength": { "weak": "Weak", "fair": "Fair", "good": "Good", "strong": "Strong" }
