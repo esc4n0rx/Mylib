@@ -1,13 +1,13 @@
 # One-line setup for Windows:
 #
-#   irm https://raw.githubusercontent.com/paulo-android99/Mylib/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/esc4n0rx/Mylib/main/scripts/install.ps1 | iex
 #
 # Downloads the prebuilt MyLib server release for this architecture, makes sure FFmpeg is
 # available, starts the server and prints the URL to open on this machine and on the LAN.
 # Nothing is compiled locally: no Rust or Node toolchain is required.
 
 param(
-    [string]$Repo = "paulo-android99/Mylib",
+    [string]$Repo = "esc4n0rx/Mylib",
     [string]$Version = "latest",
     [string]$AvatarsVersion = "avatars-v1",
     [string]$InstallDir = (Join-Path $env:USERPROFILE "Mylib"),

@@ -26,20 +26,20 @@ Contributions should follow [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Quick install (prebuilt binary)
 
 No Rust or Node toolchain required. The script downloads the prebuilt server for your OS/CPU
-from [GitHub Releases](https://github.com/paulo-android99/Mylib/releases), makes sure FFmpeg is
+from [GitHub Releases](https://github.com/esc4n0rx/Mylib/releases), makes sure FFmpeg is
 available, starts `mylib-server` and prints the URL to open — both `http://localhost:8096` and
 the address reachable from other devices on the same network.
 
 Linux / macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/paulo-android99/Mylib/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/esc4n0rx/Mylib/main/scripts/install.sh | bash
 ```
 
 Windows (PowerShell):
 
 ```powershell
-irm https://raw.githubusercontent.com/paulo-android99/Mylib/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/esc4n0rx/Mylib/main/scripts/install.ps1 | iex
 ```
 
 The server keeps running after the script exits; re-run the same command later to update to the

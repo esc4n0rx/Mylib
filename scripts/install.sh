@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # One-line setup for Linux and macOS:
 #
-#   curl -fsSL https://raw.githubusercontent.com/paulo-android99/Mylib/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/esc4n0rx/Mylib/main/scripts/install.sh | bash
 #
 # Downloads the prebuilt MyLib server release for this OS/architecture, makes sure FFmpeg is
 # available, starts the server and prints the URL to open on this machine and on the LAN.
 # Nothing is compiled locally: no Rust or Node toolchain is required.
 set -euo pipefail
 
-REPO="${MYLIB_REPO:-paulo-android99/Mylib}"
+REPO="${MYLIB_REPO:-esc4n0rx/Mylib}"
 VERSION="${MYLIB_VERSION:-latest}"
 AVATARS_VERSION="${MYLIB_AVATARS_VERSION:-avatars-v1}"
 INSTALL_DIR="${MYLIB_INSTALL_DIR:-$HOME/mylib}"
